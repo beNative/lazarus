@@ -1,20 +1,21 @@
 object RichEditorViewKMemo: TRichEditorViewKMemo
   Left = 830
-  Height = 342
+  Height = 513
   Top = 216
-  Width = 486
+  Width = 729
   AllowDropFiles = True
   Caption = 'RichEditorViewKMemo'
-  ClientHeight = 342
-  ClientWidth = 486
+  ClientHeight = 513
+  ClientWidth = 729
+  DesignTimePPI = 144
   FormStyle = fsStayOnTop
+  LCLVersion = '4.99.0.0'
   OnDropFiles = FormDropFiles
-  LCLVersion = '2.2.2.0'
   object pnlRichEditor: TPanel
     Left = 0
-    Height = 342
+    Height = 513
     Top = 0
-    Width = 486
+    Width = 729
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
@@ -25,7 +26,7 @@ object RichEditorViewKMemo: TRichEditorViewKMemo
     ShowImage = False
     MultiTarget = True
     Formats = [mfURL]
-    Left = 48
-    Top = 16
+    Left = 72
+    Top = 24
   end
 end

@@ -113,10 +113,13 @@ type
     procedure EndUpdate;
 
     function IsUpdating: Boolean;
+    function IsBlockSelected: Boolean;
+    function IsImageSelected: Boolean;
 
     function InsertImage: Boolean; overload;
     procedure InsertImageFile(const AFileName: string);
     procedure InsertImage(AImage: TPicture); overload;
+    procedure ResizeImage(AScale: Integer);
     procedure InsertHyperlink(
       const AText : string = '';
       const AURL  : string = ''
@@ -124,6 +127,7 @@ type
     procedure EditSelectedItem;
     procedure EditParagraphStyle;
     procedure EditTextStyle;
+    procedure DeleteSelectedItem;
     procedure CreateBulletList;
     procedure CreateNumberedList;
     procedure CreateTable(AColCount: Integer; ARowCount: Integer);

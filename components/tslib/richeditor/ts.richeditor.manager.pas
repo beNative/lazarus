@@ -68,6 +68,15 @@ type
     actInsertRowBefore       : TAction;
     actInsertTable           : TAction;
     actDeleteTable           : TAction;
+    actImageResize10: TAction;
+    actImageResize66: TAction;
+    actImageResize50: TAction;
+    actImageResize33: TAction;
+    actImageResize25: TAction;
+    actImageResize75: TAction;
+    actImageResize100: TAction;
+    actImageResizeMenu: TAction;
+    actImageResize90: TAction;
     actShowStructureViewer   : TAction;
     actItalic                : TAction;
     actNumberedList          : TAction;
@@ -96,6 +105,7 @@ type
     dlgOpen                  : TOpenDialog;
     dlgSave                  : TSaveDialog;
     imlMain                  : TImageList;
+    ppmImageResize           : TPopupMenu;
     ppmClipboard             : TPopupMenu;
     ppmFile                  : TPopupMenu;
     ppmInsert                : TPopupMenu;
@@ -126,6 +136,7 @@ type
     procedure actEditParagraphStyleExecute(Sender: TObject);
     procedure actEditSelectedItemExecute(Sender: TObject);
     procedure actEditTextStyleExecute(Sender: TObject);
+    procedure actImageResize90Execute(Sender: TObject);
     procedure actIncFontSizeExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
     procedure actInsertBulletListExecute(Sender: TObject);
@@ -141,6 +152,13 @@ type
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
+    procedure actImageResize100Execute(Sender: TObject);
+    procedure actImageResize10Execute(Sender: TObject);
+    procedure actImageResize25Execute(Sender: TObject);
+    procedure actImageResize33Execute(Sender: TObject);
+    procedure actImageResize50Execute(Sender: TObject);
+    procedure actImageResize66Execute(Sender: TObject);
+    procedure actImageResize75Execute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
     procedure actSelectTableExecute(Sender: TObject);
@@ -161,6 +179,7 @@ type
     FActiveView : IRichEditorView;
     FEvents     : IRichEditorEvents;
     FToolViews  : IRichEditorToolViews;
+    function GetImageResizePopupMenu: TPopupMenu;
 
   protected
     {$REGION 'property access mehods'}
@@ -206,6 +225,7 @@ type
     );
 
     procedure BuildRichEditorPopupMenu;
+    procedure BuildImageResizeMenu;
     procedure BuildInsertPopupMenu;
     procedure BuildTablePopupMenu;
     procedure BuildSelectionPopupMenu;
@@ -250,6 +270,9 @@ type
 
     property FilePopupMenu: TPopupMenu
       read GetFilePopupMenu;
+
+    property ImageResizePopupMenu: TPopupMenu
+      read GetImageResizePopupMenu;
 
     property TablePopupMenu: TPopupMenu
       read GetTablePopupMenu;
@@ -438,6 +461,70 @@ end;
 procedure TdmRichEditorManager.actRedoExecute(Sender: TObject);
 begin
   ActiveView.Redo;
+end;
+
+procedure TdmRichEditorManager.actImageResize10Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(10);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize25Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(25);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize33Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(33);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize50Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(50);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize66Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(66);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize75Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(75);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize90Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(90);
+  end;
+end;
+
+procedure TdmRichEditorManager.actImageResize100Execute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ResizeImage(100);
+  end;
 end;
 
 procedure TdmRichEditorManager.actSaveAsExecute(Sender: TObject);
@@ -799,6 +886,11 @@ begin
   end;
 end;
 
+function TdmRichEditorManager.GetImageResizePopupMenu: TPopupMenu;
+begin
+  Result := ppmImageResize;
+end;
+
 procedure TdmRichEditorManager.actToggleWordWrapExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -825,6 +917,7 @@ begin
   AddMenuItem(MI, actPaste);
   AddMenuItem(MI);
   AddMenuItem(MI, TablePopupMenu);
+  AddMenuItem(MI, ImageResizePopupMenu);
   AddMenuItem(MI, SelectionPopupMenu);
   AddMenuItem(MI, FilePopupMenu);
   AddMenuItem(MI, InsertPopupMenu);
@@ -834,6 +927,23 @@ begin
   //AddMenuItem(MI);
   //AddMenuItem(MI, actUndo); // not supported yet
   //AddMenuItem(MI, actRedo); // not supported yet
+end;
+
+procedure TdmRichEditorManager.BuildImageResizeMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := ImageResizePopupMenu.Items;
+  MI.Clear;
+  MI.Action := actImageResizeMenu;
+  AddMenuItem(MI, actImageResize10);
+  AddMenuItem(MI, actImageResize25);
+  AddMenuItem(MI, actImageResize33);
+  AddMenuItem(MI, actImageResize50);
+  AddMenuItem(MI, actImageResize66);
+  AddMenuItem(MI, actImageResize75);
+  AddMenuItem(MI, actImageResize90);
+  AddMenuItem(MI, actImageResize100);
 end;
 
 procedure TdmRichEditorManager.BuildInsertPopupMenu;
@@ -947,6 +1057,7 @@ begin
   BuildSelectPopupMenu;
   BuildFilePopupMenu;
   BuildInsertPopupMenu;
+  BuildImageResizeMenu;
   BuildTablePopupMenu;
   BuildClipboardPopupMenu;
   BuildSettingsPopupMenu;
@@ -996,6 +1107,7 @@ end;
 procedure TdmRichEditorManager.UpdateActions;
 var
   B : Boolean;
+  M : Boolean;
 begin
   B := Assigned(ActiveView) and not ActiveView.ReadOnly;
   actUndo.Enabled                  := B and ActiveView.CanUndo;
@@ -1014,7 +1126,7 @@ begin
   actDecFontSize.Enabled           := B;
   actDecIndent.Enabled             := B;
   actEditParagraphStyle.Enabled    := B;
-  actEditSelectedItem.Enabled      := B;
+  actEditSelectedItem.Enabled      := B and ActiveView.IsBlockSelected;
   actEditTextStyle.Enabled         := B;
   actIncFontSize.Enabled           := B;
   actIncIndent.Enabled             := B;
@@ -1044,15 +1156,26 @@ begin
   actToggleWordWrap.Checked := B and ActiveView.WordWrap;
   actUnderline.Checked      := B and ActiveView.Font.Underline;
 
-  B := B and ActiveView.IsInsideOfTable;
-  actDeleteColumn.Visible       := B;
-  actDeleteRow.Visible          := B;
-  actInsertColumnAfter.Visible  := B;
-  actInsertColumnBefore.Visible := B;
-  actInsertRowAfter.Visible     := B;
-  actInsertRowBefore.Visible    := B;
-  actSelectTable.Visible        := B;
-  actTableMenu.Visible          := B;
+  M := B and ActiveView.IsInsideOfTable;
+  actTableMenu.Visible          := M;
+  actDeleteColumn.Visible       := M;
+  actDeleteRow.Visible          := M;
+  actInsertColumnAfter.Visible  := M;
+  actInsertColumnBefore.Visible := M;
+  actInsertRowAfter.Visible     := M;
+  actInsertRowBefore.Visible    := M;
+  actSelectTable.Visible        := M;
+
+  M := B and ActiveView.IsImageSelected;
+  actImageResizeMenu.Visible := M;
+  actImageResize10.Visible   := M;
+  actImageResize25.Visible   := M;
+  actImageResize33.Visible   := M;
+  actImageResize50.Visible   := M;
+  actImageResize66.Visible   := M;
+  actImageResize75.Visible   := M;
+  actImageResize90.Visible   := M;
+  actImageResize100.Visible  := M;
 end;
 
 function TdmRichEditorManager.AddView(const AName: string;

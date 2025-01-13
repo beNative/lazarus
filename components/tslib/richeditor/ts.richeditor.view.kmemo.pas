@@ -133,6 +133,8 @@ type
     function EditImage(AItem: TKMemoImageBlock): Boolean;
     function EditHyperlink(AItem: TKMemoHyperlink): Boolean;
 
+    function ResizeImageBlock(AItem: TKMemoImageBlock; AScale: Integer): Boolean;
+
   protected
     {$REGION 'property access mehods'}
     function GetActions: IRichEditorActions;
@@ -192,6 +194,7 @@ type
 
     procedure SelectAll;
     procedure EditSelectedItem;
+    procedure DeleteSelectedItem;
     procedure EditParagraphStyle;
     procedure EditTextStyle;
     procedure LoadFromFile(const AFileName: string);
@@ -203,6 +206,8 @@ type
 
     procedure BeginUpdate;
     function IsUpdating: Boolean;
+    function IsBlockSelected: Boolean;
+    function IsImageSelected: Boolean;
     procedure EndUpdate;
 
     procedure InsertImageFile(const AFileName: string);
@@ -219,6 +224,8 @@ type
     procedure DeleteColumn;
     procedure DeleteRow;
     procedure SelectTable;
+
+    procedure ResizeImage(AScale: Integer);
 
     procedure CreateBulletList;
     procedure CreateNumberedList;
@@ -362,7 +369,8 @@ uses
 
   keditcommon, kgraphics,
 
-  ts.Core.Logger;
+  ts.Core.Logger,
+  ts.RichEditor.Resources;
 
 type
   TKAccessMemo = class(TKMemo)
@@ -1017,6 +1025,19 @@ begin
     Result := True;
   end;
 end;
+
+function TRichEditorViewKMemo.ResizeImageBlock(AItem: TKMemoImageBlock;
+  AScale: Integer): Boolean;
+begin
+  if Assigned(AItem) then
+  begin
+    AItem.LogScaleX := AScale;
+    AItem.LogScaleY := AScale;
+    Result := True;
+  end
+  else
+    Result := False;
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -1034,6 +1055,14 @@ begin
     LBlock := Editor.ActiveInnerBlock;
   if Assigned(LBlock) then
     KMemoNotifier.EditBlock(LBlock); // will invoke EditBlock event
+end;
+
+procedure TRichEditorViewKMemo.DeleteSelectedItem;
+begin
+  if SelAvail then
+  begin
+    FEditor.DeleteSelectedBlock;
+  end;
 end;
 
 procedure TRichEditorViewKMemo.EditParagraphStyle;
@@ -1138,23 +1167,39 @@ var
 begin
   P := TPicture.Create;
   try
-    P.LoadFromFile(AFileName);
-    InsertImage(P);
+    try
+      P.LoadFromFile(AFileName);
+      InsertImage(P);
+    except
+      MessageDlg(SWarning, SPictureFormatNotSupported, mtWarning, [mbOK], 0);
+    end;
   finally
     P.Free;
   end;
 end;
 
 procedure TRichEditorViewKMemo.InsertImage(AImage: TPicture);
+var
+  LIndex      : TKMemoBlockIndex;
+  LImageBlock : TKMemoImageBlock;
 begin
   // TKMemo does only handle jpg and png well, so we convert any other
   // image types to jpeg first.
-  if not MatchStr(AImage.Graphic.MimeType, ['image/jpg', 'image/png']) then
-  begin
-    AImage.Assign(AImage.Jpeg);
+  try
+    if not MatchStr(AImage.Graphic.MimeType, ['image/jpg', 'image/png']) then
+    begin
+      AImage.Assign(AImage.Jpeg);
+    end;
+    LIndex := -1;
+    if Assigned(FEditor.ActiveBlocks) and Assigned(FEditor.ActiveBlock) then
+      LIndex := FEditor.ActiveBlocks.BlockToIndex(FEditor.ActiveBlock);
+    LImageBlock := FEditor.Blocks.AddImageBlock(AImage, LIndex);
+    // Set logical scaling to 100%
+    LImageBlock.LogScaleX := 100;
+    LImageBlock.LogScaleY := 100;
+  finally
+    Events.DoModified;
   end;
-  FEditor.Blocks.AddImageBlock(AImage);
-  Events.DoModified;
 end;
 
 { Creates new or updates an existing image block.  }
@@ -1374,6 +1419,14 @@ begin
     KMemoNotifier.SelectBlock(FEditor.ActiveBlock, sgpNone);
 end;
 
+procedure TRichEditorViewKMemo.ResizeImage(AScale: Integer);
+begin
+  if IsImageSelected then
+  begin
+     ResizeImageBlock(SelectedBlock as TKMemoImageBlock, AScale);
+  end;
+end;
+
 procedure TRichEditorViewKMemo.CreateBulletList;
 var
   BI : TKMemoBlockIndex;
@@ -1408,9 +1461,9 @@ end;
 
 procedure TRichEditorViewKMemo.CreateTable(AColCount: Integer; ARowCount: Integer);
 var
-  LTable     : TKMemoTable;
-  X          : Integer;
-  Y          : Integer;
+  LTable : TKMemoTable;
+  X      : Integer;
+  Y      : Integer;
 begin
   LTable := FEditor.ActiveInnerBlocks.AddTable;
   LTable.ColCount := AColCount;
@@ -1453,6 +1506,16 @@ end;
 function TRichEditorViewKMemo.IsUpdating: Boolean;
 begin
   Result := FUpdateLock > 0;
+end;
+
+function TRichEditorViewKMemo.IsBlockSelected: Boolean;
+begin
+  Result := Assigned(SelectedBlock);
+end;
+
+function TRichEditorViewKMemo.IsImageSelected: Boolean;
+begin
+  Result := IsBlockSelected and (SelectedBlock is TKMemoImageBlock);
 end;
 
 procedure TRichEditorViewKMemo.Clear;

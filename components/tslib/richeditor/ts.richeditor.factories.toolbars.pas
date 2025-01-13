@@ -138,6 +138,9 @@ begin
   CreateToolButton(TB, 'actCopy');
   CreateToolButton(TB, 'actPaste');
   CreateToolButton(TB);
+  CreateToolButton(TB, 'actUndo');
+  CreateToolButton(TB, 'actRedo');
+  CreateToolButton(TB);
   CreateToolButton(TB, 'actBold');
   CreateToolButton(TB, 'actItalic');
   CreateToolButton(TB, 'actUnderline');

@@ -1,15 +1,16 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
-  Height = 580
-  HorizontalOffset = 2004
-  VerticalOffset = 398
-  Width = 506
+  Height = 870
+  HorizontalOffset = 3006
+  VerticalOffset = 597
+  Width = 759
+  PPI = 144
   object imlMain: TImageList
     AllocBy = 1
     DrawingStyle = dsTransparent
     Scaled = True
-    Left = 213
-    Top = 32
+    Left = 320
+    Top = 48
     Bitmap = {
       4C7A780000001000000010000000F7AB00000000000078DAEC9D075C143BD7FF
       17107BBDD66B43C572EDBDF7AE60EF0D95228828028A05542C20A0880D0B7605
@@ -33306,63 +33307,63 @@ object dmEditorManager: TdmEditorManager
   object aclActions: TActionList
     Images = imlMain
     OnExecute = aclActionsExecute
-    Left = 216
-    Top = 88
+    Left = 324
+    Top = 132
     object actSettings: TAction
       Category = 'Settings'
       Caption = 'Settings'
       Hint = 'Editor settings'
       ImageIndex = 7
-      OnExecute = actSettingsExecute
       ShortCut = 24659
+      OnExecute = actSettingsExecute
     end
     object actSearch: TAction
       Category = 'Find'
       Caption = 'Find...'
       Hint = 'Find'
       ImageIndex = 9
-      OnExecute = actSearchExecute
       ShortCut = 16454
+      OnExecute = actSearchExecute
     end
     object actFindNextWord: TAction
       Category = 'Find'
       Caption = 'Find &next word'
       Hint = 'Find next word occurence'
       ImageIndex = 21
-      OnExecute = actFindNextWordExecute
       ShortCut = 49192
+      OnExecute = actFindNextWordExecute
     end
     object actFindPrevWord: TAction
       Category = 'Find'
       Caption = 'Find &previous word'
       Hint = 'Find previous word occurence'
       ImageIndex = 22
-      OnExecute = actFindPrevWordExecute
       ShortCut = 49190
+      OnExecute = actFindPrevWordExecute
     end
     object actSearchReplace: TAction
       Category = 'Find'
       Caption = 'Replace...'
       Hint = 'Replace'
       ImageIndex = 10
-      OnExecute = actSearchReplaceExecute
       ShortCut = 16466
+      OnExecute = actSearchReplaceExecute
     end
     object actSaveAs: TAction
       Category = 'File'
       Caption = 'Save as...'
       Hint = 'Save file as'
       ImageIndex = 55
-      OnExecute = actSaveAsExecute
       ShortCut = 24659
+      OnExecute = actSaveAsExecute
     end
     object actOpen: TAction
       Category = 'File'
       Caption = 'Open'
       Hint = 'Open file'
       ImageIndex = 3
-      OnExecute = actOpenExecute
       ShortCut = 16463
+      OnExecute = actOpenExecute
     end
     object actExportToHTML: TAction
       Category = 'Export'
@@ -33428,8 +33429,8 @@ object dmEditorManager: TdmEditorManager
       Enabled = False
       Hint = 'Page setup'
       ImageIndex = 35
-      OnExecute = actPageSetupExecute
       Visible = False
+      OnExecute = actPageSetupExecute
     end
     object actPrintPreview: TAction
       Category = 'Print'
@@ -33437,8 +33438,8 @@ object dmEditorManager: TdmEditorManager
       Enabled = False
       Hint = 'Print preview'
       ImageIndex = 35
-      OnExecute = actPrintPreviewExecute
       Visible = False
+      OnExecute = actPrintPreviewExecute
     end
     object actPrint: TAction
       Category = 'Print'
@@ -33446,17 +33447,17 @@ object dmEditorManager: TdmEditorManager
       Enabled = False
       Hint = 'Print'
       ImageIndex = 34
-      OnExecute = actPrintExecute
       ShortCut = 16464
       Visible = False
+      OnExecute = actPrintExecute
     end
     object actCopySelectionToClipboard: TAction
       Category = 'Clipboard'
       Caption = 'Copy selection to clipboard'
       Hint = 'Copy selected text to clipboard'
       ImageIndex = 1
-      OnExecute = actCopySelectionToClipboardExecute
       ShortCut = 16451
+      OnExecute = actCopySelectionToClipboardExecute
     end
     object actShowSpecialCharacters: TAction
       Category = 'Settings'
@@ -33464,134 +33465,134 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Show special characters'
       Hint = 'Show special characters (like tabs and spaces).'
       ImageIndex = 84
-      OnExecute = actShowSpecialCharactersExecute
       ShortCut = 24643
+      OnExecute = actShowSpecialCharactersExecute
     end
     object actUpperCaseSelection: TAction
       Category = 'Selection'
       Caption = 'Uppercase'
       Hint = 'Upper case selection'
       ImageIndex = 20
-      OnExecute = actUpperCaseSelectionExecute
       ShortCut = 16469
+      OnExecute = actUpperCaseSelectionExecute
     end
     object actLowerCaseSelection: TAction
       Category = 'Selection'
       Caption = 'Lowercase'
       Hint = 'Lower case selection'
       ImageIndex = 25
-      OnExecute = actLowerCaseSelectionExecute
       ShortCut = 16460
+      OnExecute = actLowerCaseSelectionExecute
     end
     object actToggleComment: TAction
       Category = 'Selection'
       Caption = 'Toggle comment'
       Hint = 'Toggle comment for current line or each selected line.'
       ImageIndex = 17
-      OnExecute = actToggleCommentExecute
       SecondaryShortCuts.Strings = (
         'Ctrl+/'
       )
       ShortCut = 16495
+      OnExecute = actToggleCommentExecute
     end
     object actAlignSelection: TAction
       Category = 'Selection'
       Caption = 'Align'
       Hint = 'Align selected lines'
       ImageIndex = 29
-      OnExecute = actAlignSelectionExecute
       ShortCut = 49242
+      OnExecute = actAlignSelectionExecute
     end
     object actSortSelection: TAction
       Category = 'Selection'
       Caption = 'Sort'
       Hint = 'Sort selected lines'
       ImageIndex = 16
-      OnExecute = actSortSelectionExecute
       ShortCut = 49235
+      OnExecute = actSortSelectionExecute
     end
     object actFindNext: TAction
       Category = 'Find'
       Caption = 'Find next'
       Hint = 'Find next'
       ImageIndex = 21
-      OnExecute = actFindNextExecute
       ShortCut = 114
+      OnExecute = actFindNextExecute
     end
     object actFindPrevious: TAction
       Category = 'Find'
       Caption = 'Find previous'
       Hint = 'Find previous'
       ImageIndex = 22
-      OnExecute = actFindPreviousExecute
       ShortCut = 16498
+      OnExecute = actFindPreviousExecute
     end
     object actQuoteLines: TAction
       Category = 'Selection'
       Caption = 'Quote lines'
       Hint = 'Quote each line in the selection.'
       ImageIndex = 82
-      OnExecute = actQuoteLinesExecute
       ShortCut = 16465
+      OnExecute = actQuoteLinesExecute
     end
     object actQuoteLinesAndDelimit: TAction
       Category = 'Selection'
       Caption = 'Quote lines and delimit'
       Hint = 'Quote each line in the selection and delimit with comma'
       ImageIndex = 110
-      OnExecute = actQuoteLinesAndDelimitExecute
       ShortCut = 24657
+      OnExecute = actQuoteLinesAndDelimitExecute
     end
     object actFormat: TAction
       Category = 'Commands'
       Caption = 'Format text'
       Hint = 'Formats text depending on the current highlighter.'
       ImageIndex = 74
-      OnExecute = actFormatExecute
       ShortCut = 49222
+      OnExecute = actFormatExecute
     end
     object actIncFontSize: TAction
       Category = 'Settings'
       Caption = 'Increase font size'
       Hint = 'Increase editor font size'
       ImageIndex = 78
-      OnExecute = actIncFontSizeExecute
       SecondaryShortCuts.Strings = (
         'CTRL+''+'''
       )
       ShortCut = 16491
+      OnExecute = actIncFontSizeExecute
     end
     object actDecFontSize: TAction
       Category = 'Settings'
       Caption = 'Decrease font size'
       Hint = 'Decrease editor font size'
       ImageIndex = 77
-      OnExecute = actDecFontSizeExecute
       ShortCut = 16493
+      OnExecute = actDecFontSizeExecute
     end
     object actShowCodeShaper: TAction
       Category = 'ToolViews'
       Caption = 'Shape code'
       Hint = 'Apply custom code formatting to selection'
       ImageIndex = 79
-      OnExecute = actShowCodeShaperExecute
       ShortCut = 49219
+      OnExecute = actShowCodeShaperExecute
     end
     object actPascalStringOfSelection: TAction
       Category = 'Selection'
       Caption = 'Pascal string'
       Hint = 'Convert selection to pascal string declaration'
       ImageIndex = 114
-      OnExecute = actPascalStringOfSelectionExecute
       ShortCut = 57424
+      OnExecute = actPascalStringOfSelectionExecute
     end
     object actSave: TAction
       Category = 'File'
       Caption = 'Save'
       Hint = 'Save'
       ImageIndex = 4
-      OnExecute = actSaveExecute
       ShortCut = 16467
+      OnExecute = actSaveExecute
     end
     object actFoldLevel0: TAction
       Category = 'Fold'
@@ -33698,71 +33699,71 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Toggle fold level'
       Hint = 'Toggle folding level.'
       ImageIndex = 69
-      OnExecute = actToggleFoldLevelExecute
       ShortCut = 118
+      OnExecute = actToggleFoldLevelExecute
     end
     object actToggleHighlighter: TAction
       Category = 'Highlighter'
       Caption = 'Toggle highlighter'
       Hint = 'Toggle highlighter.'
       ImageIndex = 75
-      OnExecute = actToggleHighlighterExecute
       ShortCut = 115
+      OnExecute = actToggleHighlighterExecute
     end
     object actInspect: TAction
       Category = 'Debug'
       Caption = 'Inspect'
       Hint = 'Show inspector'
       ImageIndex = 52
-      OnExecute = actInspectExecute
       ShortCut = 16496
+      OnExecute = actInspectExecute
     end
     object actShowCodeFilter: TAction
       Category = 'ToolViews'
       Caption = 'Filter code'
       Hint = 'Filter code'
       ImageIndex = 70
-      OnExecute = actShowCodeFilterExecute
       ShortCut = 16455
+      OnExecute = actShowCodeFilterExecute
     end
     object actInsertColorValue: TAction
       Category = 'Insert'
       Caption = 'Insert color value'
       Hint = 'Insert numeric color value'
       ImageIndex = 88
-      OnExecute = actInsertColorValueExecute
       ShortCut = 8304
+      OnExecute = actInsertColorValueExecute
     end
     object actReload: TAction
       Category = 'File'
       Caption = 'Reload'
       Hint = 'Reload content.'
       ImageIndex = 14
-      OnExecute = actReloadExecute
       ShortCut = 116
+      OnExecute = actReloadExecute
     end
     object actNew: TAction
       Category = 'File'
       Caption = 'New'
       Hint = 'Create a new editor view.'
       ImageIndex = 39
-      OnExecute = actNewExecute
       ShortCut = 16462
+      OnExecute = actNewExecute
     end
     object actShowPreview: TAction
       Category = 'ToolViews'
       Caption = 'Show preview'
       Hint = 'Show text preview.'
       ImageIndex = 71
-      OnExecute = actShowPreviewExecute
       ShortCut = 49232
+      OnExecute = actShowPreviewExecute
     end
     object actAutoFormatXML: TAction
       Category = 'Settings'
       Caption = 'Autoformat XML'
       ImageIndex = 50
-      OnExecute = actAutoFormatXMLExecute
       ShortCut = 49222
+      OnExecute = actAutoFormatXMLExecute
     end
     object actHelp: TAction
       Category = 'Help'
@@ -33776,24 +33777,24 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Open file at cursor'
       Hint = 'Open file at cursor'
       ImageIndex = 80
-      OnExecute = actOpenFileAtCursorExecute
       ShortCut = 16397
+      OnExecute = actOpenFileAtCursorExecute
     end
     object actDequoteLines: TAction
       Category = 'Selection'
       Caption = 'Dequote lines'
       Hint = 'Dequote each line in the selection.'
       ImageIndex = 86
-      OnExecute = actDequoteLinesExecute
       ShortCut = 24644
+      OnExecute = actDequoteLinesExecute
     end
     object actCopy: TAction
       Category = 'Clipboard'
       Caption = 'Copy'
       Hint = 'Copy selection'
       ImageIndex = 1
-      OnExecute = actCopyExecute
       ShortCut = 16451
+      OnExecute = actCopyExecute
     end
     object actShowCharacterMap: TAction
       Category = 'ToolViews'
@@ -33814,71 +33815,71 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Dequote'
       Hint = 'Dequote selection'
       ImageIndex = 85
-      OnExecute = actDequoteSelectionExecute
       ShortCut = 16452
+      OnExecute = actDequoteSelectionExecute
     end
     object actAutoGuessHighlighter: TAction
       Category = 'Commands'
       Caption = 'Auto guess highlighter'
       Hint = 'Auto guess highlighter'
       ImageIndex = 87
-      OnExecute = actAutoGuessHighlighterExecute
       ShortCut = 16456
+      OnExecute = actAutoGuessHighlighterExecute
     end
     object actSmartSelect: TAction
       Category = 'Select'
       Caption = 'Smartselect'
       Hint = 'Make a smart selection'
       ImageIndex = 89
-      OnExecute = actSmartSelectExecute
       ShortCut = 112
+      OnExecute = actSmartSelectExecute
     end
     object actClose: TAction
       Category = 'File'
       Caption = 'Close active editor view'
       Hint = 'Close the active editor instance.'
       ImageIndex = 31
-      OnExecute = actCloseExecute
       ShortCut = 16499
+      OnExecute = actCloseExecute
     end
     object actStripFirstChar: TAction
       Category = 'Selection'
       Caption = 'Strip first character'
       Hint = 'Strip first character from every line in the selection.'
       ImageIndex = 95
-      OnExecute = actStripFirstCharExecute
       ShortCut = 57414
+      OnExecute = actStripFirstCharExecute
     end
     object actStripLastChar: TAction
       Category = 'Selection'
       Caption = 'Strip last character'
       Hint = 'Strip last character from every line in the selection.'
       ImageIndex = 94
-      OnExecute = actStripLastCharExecute
       ShortCut = 57420
+      OnExecute = actStripLastCharExecute
     end
     object actRedo: TAction
       Category = 'Edit'
       Caption = 'Redo'
       Hint = 'Redo'
       ImageIndex = 37
-      OnExecute = actRedoExecute
       ShortCut = 24666
+      OnExecute = actRedoExecute
     end
     object actCloseOthers: TAction
       Category = 'File'
       Caption = 'Close all other editors'
       Hint = 'Close all other editors'
-      OnExecute = actCloseOthersExecute
       ShortCut = 24691
+      OnExecute = actCloseOthersExecute
     end
     object actMonitorChanges: TAction
       Category = 'Settings'
       Caption = 'Monitor changes'
       Hint = 'Monitor for external file changes.'
       ImageIndex = 90
-      OnExecute = actMonitorChangesExecute
       ShortCut = 24653
+      OnExecute = actMonitorChangesExecute
     end
     object actAbout: TAction
       Category = 'Help'
@@ -33928,16 +33929,16 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Show views'
       Hint = 'Show list of all editor views.'
       ImageIndex = 91
-      OnExecute = actShowViewsExecute
       ShortCut = 49238
+      OnExecute = actShowViewsExecute
     end
     object actSyncEdit: TAction
       Category = 'Selection'
       Caption = 'Sync edit'
       Hint = 'Synchronized edit'
       ImageIndex = 5
-      OnExecute = actSyncEditExecute
       ShortCut = 24650
+      OnExecute = actSyncEditExecute
     end
     object actClear: TAction
       Category = 'Select'
@@ -33951,8 +33952,8 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Create desktop link'
       Hint = 'Create a desktop shortcut to the active file.'
       ImageIndex = 92
-      OnExecute = actCreateDesktopLinkExecute
       ShortCut = 49228
+      OnExecute = actCreateDesktopLinkExecute
     end
     object actExit: TAction
       Category = 'File'
@@ -33966,40 +33967,40 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Strip markup'
       Hint = 'Strip markup tags from XML/HTML.'
       ImageIndex = 93
-      OnExecute = actStripMarkupExecute
       ShortCut = 57427
+      OnExecute = actStripMarkupExecute
     end
     object actPaste: TAction
       Category = 'Clipboard'
       Caption = 'Paste'
       Hint = 'Paste'
       ImageIndex = 2
-      OnExecute = actPasteExecute
       ShortCut = 16470
+      OnExecute = actPasteExecute
     end
     object actCut: TAction
       Category = 'Clipboard'
       Caption = 'Cut'
       Hint = 'Cut'
       ImageIndex = 0
-      OnExecute = actCutExecute
       ShortCut = 16472
+      OnExecute = actCutExecute
     end
     object actUndo: TAction
       Category = 'Edit'
       Caption = 'Undo'
       Hint = 'Undo'
       ImageIndex = 38
-      OnExecute = actUndoExecute
       ShortCut = 16474
+      OnExecute = actUndoExecute
     end
     object actSelectAll: TAction
       Category = 'Select'
       Caption = 'Select All'
       Hint = 'Select all.'
       ImageIndex = 23
-      OnExecute = actSelectAllExecute
       ShortCut = 16449
+      OnExecute = actSelectAllExecute
     end
     object actDelete: TAction
       Category = 'Edit'
@@ -34013,27 +34014,27 @@ object dmEditorManager: TdmEditorManager
       AutoCheck = True
       Caption = 'Show testform'
       ImageIndex = 119
-      OnExecute = actShowTestExecute
       ShortCut = 49220
+      OnExecute = actShowTestExecute
     end
     object actToggleBlockCommentSelection: TAction
       Category = 'Selection'
       Caption = 'Toggle block comment selection'
       Hint = 'Comment/uncomment the selection with the highlighter''s block comment tags.'
       ImageIndex = 17
-      OnExecute = actToggleBlockCommentSelectionExecute
       ShortCut = 24767
+      OnExecute = actToggleBlockCommentSelectionExecute
     end
     object actShowStructureViewer: TAction
       Category = 'ToolViews'
       Caption = 'XML treeview'
-      OnExecute = actShowStructureViewerExecute
       ShortCut = 49240
+      OnExecute = actShowStructureViewerExecute
     end
     object actSelectionInfo: TAction
       Caption = 'SelectionInfo'
-      OnExecute = actSelectionInfoExecute
       ShortCut = 24651
+      OnExecute = actSelectionInfoExecute
     end
     object actStayOnTop: TAction
       Category = 'Settings'
@@ -34049,8 +34050,8 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Toggle maximized'
       Hint = 'Toggles between maximized and restored mode.'
       ImageIndex = 97
-      OnExecute = actToggleMaximizedExecute
       ShortCut = 122
+      OnExecute = actToggleMaximizedExecute
     end
     object actSingleInstance: TAction
       Category = 'Settings'
@@ -34108,8 +34109,8 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Insert GUID'
       Hint = 'Inserts a new GUID value.'
       ImageIndex = 99
-      OnExecute = actInsertGUIDExecute
       ShortCut = 24647
+      OnExecute = actInsertGUIDExecute
     end
     object actInsertMenu: TAction
       Category = 'Insert'
@@ -34122,8 +34123,8 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Find all occurences'
       Hint = 'Finds all occurences of the selected text or the current word at the caret position.'
       ImageIndex = 27
-      OnExecute = actFindAllOccurencesExecute
       ShortCut = 24646
+      OnExecute = actFindAllOccurencesExecute
     end
     object actSearchMenu: TAction
       Category = 'Find'
@@ -34136,16 +34137,16 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Indent'
       Hint = 'Indent selected lines.'
       ImageIndex = 30
-      OnExecute = actIndentExecute
       ShortCut = 24649
+      OnExecute = actIndentExecute
     end
     object actUnindent: TAction
       Category = 'Selection'
       Caption = 'Unindent'
       Hint = 'Unindent selected lines.'
       ImageIndex = 12
-      OnExecute = actUnindentExecute
       ShortCut = 24661
+      OnExecute = actUnindentExecute
     end
     object actSelectMenu: TAction
       Category = 'Select'
@@ -34168,8 +34169,8 @@ object dmEditorManager: TdmEditorManager
       Category = 'ToolViews'
       Caption = 'Show minimap'
       Hint = 'Show minimap.'
-      OnExecute = actShowMiniMapExecute
       ShortCut = 49229
+      OnExecute = actShowMiniMapExecute
     end
     object actConvertTabsToSpaces: TAction
       Category = 'Selection'
@@ -34191,8 +34192,8 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowFilterTest: TAction
       Caption = 'Show filter test dialog'
-      OnExecute = actShowFilterTestExecute
       ShortCut = 57460
+      OnExecute = actShowFilterTestExecute
     end
     object actHighlighterMenu: TAction
       Category = 'Highlighter'
@@ -34269,22 +34270,22 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Save all'
       Hint = 'Save all changes.'
       ImageIndex = 113
-      OnExecute = actSaveAllExecute
       ShortCut = 24659
+      OnExecute = actSaveAllExecute
     end
     object actRecordMacro: TAction
       Category = 'Commands'
       Caption = 'Record macro'
       ImageIndex = 116
-      OnExecute = actRecordMacroExecute
       ShortCut = 24658
+      OnExecute = actRecordMacroExecute
     end
     object actPlaybackMacro: TAction
       Category = 'Commands'
       Caption = 'Playback macro'
       ImageIndex = 118
-      OnExecute = actPlaybackMacroExecute
       ShortCut = 24656
+      OnExecute = actPlaybackMacroExecute
     end
     object actEncodeXML: TAction
       Category = 'Selection'
@@ -34306,33 +34307,33 @@ object dmEditorManager: TdmEditorManager
   end
   object ppmExport: TPopupMenu
     Images = imlMain
-    Left = 40
-    Top = 264
+    Left = 60
+    Top = 396
   end
   object ppmHighLighters: TPopupMenu
     Images = imlMain
-    Left = 40
-    Top = 200
+    Left = 60
+    Top = 300
   end
   object ppmClipboard: TPopupMenu
     Images = imlMain
-    Left = 40
-    Top = 144
+    Left = 60
+    Top = 216
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
-    Left = 285
-    Top = 32
+    Left = 428
+    Top = 48
   end
   object dlgOpen: TOpenDialog
     Options = [ofNoValidate, ofNoTestFileCreate, ofEnableSizing, ofViewDetail]
-    Left = 285
-    Top = 88
+    Left = 428
+    Top = 132
   end
   object ppmFold: TPopupMenu
     Images = imlMain
-    Left = 40
-    Top = 88
+    Left = 60
+    Top = 132
     object mniFoldLevel0: TMenuItem
       Action = actFoldLevel0
       AutoCheck = True
@@ -34448,8 +34449,8 @@ object dmEditorManager: TdmEditorManager
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    Left = 285
-    Top = 144
+    Left = 428
+    Top = 216
   end
   object SynExporterHTML: TSynExporterHTML
     Color = clWindow
@@ -34460,73 +34461,73 @@ object dmEditorManager: TdmEditorManager
     HTMLFontSize = fs03
     Title = 'Untitled'
     UseBackground = False
-    Left = 384
-    Top = 96
+    Left = 576
+    Top = 144
   end
   object ppmEncoding: TPopupMenu
     Images = imlMain
-    Left = 88
-    Top = 368
+    Left = 132
+    Top = 552
   end
   object ppmLineBreakStyle: TPopupMenu
     Images = imlMain
-    Left = 117
-    Top = 88
+    Left = 176
+    Top = 132
   end
   object ppmSelectionMode: TPopupMenu
     Images = imlMain
-    Left = 117
-    Top = 32
+    Left = 176
+    Top = 48
   end
   object ppmSelection: TPopupMenu
     Images = imlMain
-    Left = 117
-    Top = 144
+    Left = 176
+    Top = 216
   end
   object ppmEditor: TPopupMenu
     Images = imlMain
-    Left = 40
-    Top = 32
+    Left = 60
+    Top = 48
   end
   object ppmInsert: TPopupMenu
     Images = imlMain
-    Left = 121
-    Top = 215
+    Left = 182
+    Top = 323
   end
   object ppmSearch: TPopupMenu
     Images = imlMain
-    Left = 117
-    Top = 280
+    Left = 176
+    Top = 420
   end
   object ppmSettings: TPopupMenu
     Images = imlMain
-    Left = 200
-    Top = 280
+    Left = 300
+    Top = 420
   end
   object ppmSelect: TPopupMenu
     Images = imlMain
-    Left = 200
-    Top = 215
+    Left = 300
+    Top = 323
   end
   object ppmFile: TPopupMenu
     Images = imlMain
-    Left = 280
-    Top = 224
+    Left = 420
+    Top = 336
   end
   object ppmExecuteScriptOnSelection: TPopupMenu
     Images = imlMain
-    Left = 224
-    Top = 368
+    Left = 336
+    Top = 552
   end
   object ppmSelectionEncode: TPopupMenu
     Images = imlMain
-    Left = 88
-    Top = 464
+    Left = 132
+    Top = 696
   end
   object ppmSelectionDecode: TPopupMenu
     Images = imlMain
-    Left = 224
-    Top = 464
+    Left = 336
+    Top = 696
   end
   object PascalScript: TPSScript
     CompilerOptions = []
@@ -34536,7 +34537,7 @@ object dmEditorManager: TdmEditorManager
       item
       end>
     UsePreProcessor = True
-    Left = 392
-    Top = 232
+    Left = 588
+    Top = 348
   end
 end

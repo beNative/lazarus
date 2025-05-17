@@ -76,7 +76,7 @@ begin
   V.Form.BorderStyle := bsNone;
   V.Form.Align       := alClient;
   V.Form.Parent      := AParent;
-  V.PopupMenu        := AManager.EditorPopupMenu;
+  //V.PopupMenu        := AManager.EditorPopupMenu;
   V.Form.Visible     := True;
   V.EndUpdate;
   if AFileName <> '' then

@@ -33,7 +33,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="86.2694811393381" width="150.0" x="-221.32427258409518" y="-1029.1393964588146"/>
+          <y:Geometry height="86.2694811393381" width="150.0" x="-221.32427258409518" y="-1020.2916212471132"/>
           <y:Fill color="#CCFFFF" color2="#000000" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Roboto" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.234375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="110.412109375" x="19.7939453125" xml:space="preserve" y="26.0625">TKMemoListTable<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -617,7 +617,7 @@ ActiveInnerBlock
 ActiveBlocks
 ActiveInnerBlocks
 Blocks
-BackGround
+Background
 KeyMapping
 ListTable: TKMemoListTable
 NearestParagraph
@@ -1128,7 +1128,6 @@ SelectionTextStyle</y:AttributeLabel>
     </edge>
     <edge id="e40" source="n29" target="n1">
       <data key="d8" xml:space="preserve"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="51.902463979177696" sy="-93.27317571118147" tx="0.0" ty="0.0"/>
@@ -1140,10 +1139,9 @@ SelectionTextStyle</y:AttributeLabel>
     </edge>
     <edge id="e41" source="n1" target="n2">
       <data key="d8" xml:space="preserve"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.31972342865412884" sy="19.670367975365707" tx="-20.173210700954314" ty="-7.177407236335739"/>
+          <y:Path sx="-29.77088839473356" sy="10.822592763664261" tx="-20.173210700954314" ty="-7.177407236335739"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="diamond" target="none"/>
           <y:BendStyle smoothed="false"/>
@@ -1152,7 +1150,6 @@ SelectionTextStyle</y:AttributeLabel>
     </edge>
     <edge id="e42" source="n2" target="n3">
       <data key="d8" xml:space="preserve"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="1.8112903948294843" sy="-32.73060659171915" tx="0.0" ty="0.0">

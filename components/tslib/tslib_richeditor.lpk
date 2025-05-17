@@ -42,7 +42,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="16">
+    <Files Count="18">
       <Item1>
         <Filename Value="richeditor\ts.richeditor.manager.lfm"/>
         <Type Value="LFM"/>
@@ -107,6 +107,14 @@ limitations under the License.         "/>
         <Filename Value="richeditor\ts.richeditor.utils.pas"/>
         <UnitName Value="ts.RichEditor.Utils"/>
       </Item16>
+      <Item17>
+        <Filename Value="richeditor\ts.richeditor.resources.pas"/>
+        <UnitName Value="ts.richeditor.resources"/>
+      </Item17>
+      <Item18>
+        <Filename Value="richeditor\ts.richeditor.gridselect.form.pas"/>
+        <UnitName Value="ts.richeditor.gridselect.form"/>
+      </Item18>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="6">

@@ -469,10 +469,10 @@ begin
       if Components[I] is TSynCustomHighlighter then
       begin
         B := True;
-        FSynHighlighter := TSynCustomHighlighter(Components[0]);
-      end
-      else
-        Inc(B);
+        FSynHighlighter := TSynCustomHighlighter(Components[I]);
+      end;
+      if not B then
+        Inc(I);
     end;
   end;
   Result := FSynHighlighter;

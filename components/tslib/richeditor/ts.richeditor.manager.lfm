@@ -388,6 +388,7 @@ object dmRichEditorManager: TdmRichEditorManager
     object actInsertTable: TAction
       Category = 'Insert'
       Caption = 'Insert table'
+      DisableIfNoHandler = False
       Hint = 'Insert a table.'
       ImageIndex = 40
       OnExecute = actInsertTableExecute
@@ -473,6 +474,7 @@ object dmRichEditorManager: TdmRichEditorManager
   end
   object ppmRichEditor: TPopupMenu
     Images = imlMain
+    OnMeasureItem = ppmInsertMeasureItem
     Left = 48
     Top = 126
   end
@@ -15384,41 +15386,59 @@ object dmRichEditorManager: TdmRichEditorManager
     Top = 132
   end
   object ppmTable: TPopupMenu
+    OwnerDraw = True
     Left = 66
     Top = 239
   end
   object ppmInsert: TPopupMenu
     Images = imlMain
+    OwnerDraw = True
+    OnMeasureItem = ppmInsertMeasureItem
     Left = 156
     Top = 240
+    object MenuItem1: TMenuItem
+      Caption = 'MenuItem1'
+    end
   end
   object ppmSelection: TPopupMenu
     Images = imlMain
+    OwnerDraw = True
     Left = 396
     Top = 228
   end
   object ppmClipboard: TPopupMenu
     Images = imlMain
+    OwnerDraw = True
     Left = 516
     Top = 24
   end
   object ppmSelect: TPopupMenu
     Images = imlMain
+    OwnerDraw = True
     Left = 516
     Top = 144
   end
   object ppmFile: TPopupMenu
     Images = imlMain
+    OwnerDraw = True
     Left = 660
     Top = 36
   end
   object ppmSettings: TPopupMenu
     Images = imlMain
+    OwnerDraw = True
     Left = 660
     Top = 156
   end
   object ppmImageResize: TPopupMenu
+    OwnerDraw = True
     Left = 556
     Top = 288
+  end
+  object ppmDummy: TPopupMenu
+    OwnerDraw = True
+    OnMeasureItem = ppmInsertMeasureItem
+    Left = 320
+    Top = 195
   end
 end

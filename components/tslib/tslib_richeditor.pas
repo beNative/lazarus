@@ -14,7 +14,7 @@ uses
   ts.RichEditor.View.KMemo, ts.RichEditor.ToolView.Base, 
   ts.RichEditor.Style.ToolView, ts.RichEditor.ToolViews, 
   ts.RichEditor.Structure.ToolView, ts.RichEditor.Test.Toolview, 
-  ts.RichEditor.Utils;
+  ts.RichEditor.Utils, ts.RichEditor.Resources, ts.RichEditor.GridSelect.Form;
 
 implementation
 

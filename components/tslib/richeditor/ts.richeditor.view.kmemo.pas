@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
-  ExtCtrls, Menus, Types,
+  ExtCtrls, Menus, Types, LCLType,
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
   KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, KDialogs,
@@ -117,10 +117,17 @@ type
     );
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    function GetReadOnly: Boolean;
+    procedure InsertTableMenuItemDrawItem(Sender: TObject; ACanvas: TCanvas;
+      ARect: TRect; AState: TOwnerDrawState);
+
+    procedure InsertTableMenuItemMeasureItem(Sender: TObject;
+          ACanvas: TCanvas; var AWidth, AHeight: Integer);
+    procedure ManagerInsertTableMenuItemClick(Sender: TObject);
     {$ENDREGION}
 
+    function ActiveBlocks: TKMemoBlocks;
     function SelectedBlock: TKMemoBlock;
+    function GetReadOnly: Boolean;
     procedure SetReadOnly(AValue: Boolean);
 
     function TableRowCell(
@@ -137,6 +144,7 @@ type
 
   protected
     {$REGION 'property access mehods'}
+    function GetManager: IRichEditorManager;
     function GetActions: IRichEditorActions;
     function GetAlignCenter: Boolean;
     function GetAlignJustify: Boolean;
@@ -158,9 +166,11 @@ type
     function GetIsInsideOfTable: Boolean;
     function GetKMemoNotifier: IKMemoNotifier;
     function GetModified: Boolean;
+    function GetName: string;
     function GetOnSelectBlock: TNotifyEvent;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
+    function GetParent: TWinControl;
     function GetPopupMenu: TPopupMenu; override;
     function GetRTFText: string;
     function GetSelAvail: Boolean;
@@ -179,10 +189,11 @@ type
     procedure SetFileName(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
     procedure SetModified(const AValue: Boolean);
+    procedure SetName(AValue: string); reintroduce;
     procedure SetOnSelectBlock(AValue: TNotifyEvent);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
-    procedure SetPopupMenu(const AValue: TPopupMenu); reintroduce;
+    procedure SetPopupMenu(AValue: TPopupMenu);
     procedure SetRTFText(AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
@@ -263,6 +274,9 @@ type
     property Actions: IRichEditorActions
       read GetActions;
 
+    property Manager: IRichEditorManager
+      read GetManager;
+
     property Bullets: Boolean
       read GetBullets write SetBullets;
 
@@ -323,8 +337,15 @@ type
     property Modified: Boolean
       read GetModified write SetModified;
 
+    { Component name }
+    property Name: string
+      read GetName write SetName;
+
     property PopupMenu: TPopupMenu
       read GetPopupMenu write SetPopupMenu;
+
+    property Parent: TWinControl
+      read GetParent write SetParent;
 
     property Form: TCustomForm
       read GetForm;
@@ -383,6 +404,7 @@ type
 procedure TRichEditorViewKMemo.AfterConstruction;
 var
   LKey : TKEditKey;
+  MI   : TMenuItem;
 begin
   inherited AfterConstruction;
   FEditor := TKMemo.Create(Self);
@@ -424,6 +446,14 @@ begin
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
   FPreviewDialog := TKPrintPreviewDialog.Create(Self);
+  //Manager.InsertTableMenuItem.OnClick := ManagerInsertTableMenuItemClick;
+  //Manager.InsertTableMenuItem.HandleNeeded;
+  //Manager.InsertTableMenuItem.HandleNeeded;
+  //Manager.InsertTableMenuItem.OnMeasureItem := InsertTableMenuItemMeasureItem;
+  //Manager.InsertTableMenuItem.OnDrawItem := InsertTableMenuItemDrawItem;
+
+  PopupMenu := Manager.EditorPopupMenu;
+
 end;
 
 destructor TRichEditorViewKMemo.Destroy;
@@ -503,6 +533,16 @@ begin
   Result := FEditor.Modified;
 end;
 
+function TRichEditorViewKMemo.GetName: string;
+begin
+  Result := inherited Name;
+end;
+
+procedure TRichEditorViewKMemo.SetName(AValue: string);
+begin
+  inherited Name := AValue;
+end;
+
 procedure TRichEditorViewKMemo.SetModified(const AValue: Boolean);
 begin
   FEditor.Modified := AValue;
@@ -533,6 +573,22 @@ begin
   Result := FOnDropFiles;
 end;
 
+function TRichEditorViewKMemo.GetParent: TWinControl;
+begin
+  Result := inherited Parent;
+end;
+
+function TRichEditorViewKMemo.GetPopupMenu: TPopupMenu;
+begin
+  Result := Editor.PopupMenu;
+end;
+
+procedure TRichEditorViewKMemo.SetPopupMenu(AValue: TPopupMenu);
+begin
+  FEditor.PopupMenu := AValue;
+  inherited PopupMenu := AValue;
+end;
+
 procedure TRichEditorViewKMemo.SetOnDropFiles(const AValue: TDropFilesEvent);
 begin
   FOnDropFiles := AValue;
@@ -545,21 +601,25 @@ end;
 
 function TRichEditorViewKMemo.GetSelEnd: Integer;
 begin
-  Result := FEditor.SelEnd;
+  // RealSel will be the same for forward and reverse selections.
+  Result := FEditor.RealSelEnd;
 end;
 
 procedure TRichEditorViewKMemo.SetSelEnd(const AValue: Integer);
 begin
+  // RealSel will be the same for forward and reverse selections.
   FEditor.SelEnd := AValue;
 end;
 
 function TRichEditorViewKMemo.GetSelStart: Integer;
 begin
-  Result := FEditor.SelStart;
+  // RealSel will be the same for forward and reverse selections.
+  Result := FEditor.RealSelStart;
 end;
 
 procedure TRichEditorViewKMemo.SetSelStart(const AValue: Integer);
 begin
+  // RealSel will be the same for forward and reverse selections.
   FEditor.SelStart :=  AValue;
 end;
 
@@ -582,16 +642,6 @@ end;
 procedure TRichEditorViewKMemo.SetWordWrap(const AValue: Boolean);
 begin
   FParaStyle.WordWrap := AValue;
-end;
-
-function TRichEditorViewKMemo.GetPopupMenu: TPopupMenu;
-begin
-  Result := FEditor.PopupMenu;
-end;
-
-procedure TRichEditorViewKMemo.SetPopupMenu(const AValue: TPopupMenu);
-begin
-  FEditor.PopupMenu := AValue;
 end;
 
 function TRichEditorViewKMemo.GetText: string;
@@ -871,6 +921,67 @@ begin
     FEditor.NewTextStyle := FTextStyle;
   Modified := True;
   DoChange;
+end;
+
+procedure TRichEditorViewKMemo.InsertTableMenuItemDrawItem(Sender: TObject;
+  ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
+begin
+  //
+end;
+
+function TRichEditorViewKMemo.GetManager: IRichEditorManager;
+begin
+  Result := Owner as IRichEditorManager;
+end;
+
+procedure TRichEditorViewKMemo.InsertTableMenuItemMeasureItem(Sender: TObject;
+  ACanvas: TCanvas; var AWidth, AHeight: Integer);
+var
+  P: TPoint;
+  LGridSelectForm : TForm;
+begin
+  // Custom size for each menu item
+  LGridSelectForm := Manager.GridSelectForm;
+  AWidth := -1;
+  AHeight := -1;
+  (Sender as TMenuItem).Visible := False;
+   P := Mouse.CursorPos; // Get screen coordinates
+
+      // Set shadow form position and size
+
+
+    LGridSelectForm.Left := P.X;
+    LGridSelectForm.Top := P.Y;
+    LGridSelectForm.Visible := True;
+
+
+
+
+   (Sender as TMenuItem).Visible := True;
+end;
+
+procedure TRichEditorViewKMemo.ManagerInsertTableMenuItemClick(Sender: TObject);
+begin
+  ShowMessage('here we are');
+end;
+
+function TRichEditorViewKMemo.ActiveBlocks: TKMemoBlocks;
+begin
+  if Assigned(SelectedBlock) then
+    begin
+      if SelectedBlock is TKMemoContainer then
+      begin
+        Result := (SelectedBlock as TKMemoContainer).Blocks;
+      end
+      else
+      begin
+        Result := SelectedBlock.ParentBlocks;
+      end;
+    end
+    else
+    begin
+      Result := FEditor.ActiveBlocks;
+    end;
 end;
 
 function TRichEditorViewKMemo.GetReadOnly: Boolean;
@@ -1477,6 +1588,7 @@ begin
   end;
   LTable.CellStyle.BorderWidth := 2;
   LTable.ApplyDefaultCellStyle;
+  AddParagraph;
   Events.DoModified;
 end;
 
@@ -1550,7 +1662,8 @@ end;
 
 procedure TRichEditorViewKMemo.AddParagraph;
 begin
-  FEditor.ActiveInnerBlocks.AddParagraph;
+//  FEditor.ActiveInnerBlocks.AddParagraph;
+  ActiveBlocks.AddParagraph;
   FEditor.ExecuteCommand(ecInsertNewLine);
   Events.DoModified;
   Logger.Info('AddParagraph');

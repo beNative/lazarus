@@ -22,12 +22,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, ActnList, Dialogs, Menus, Contnrs, Forms,
-  Controls,
+  Controls, Graphics,
 
   KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage, KMemoDlgNumbering,
   KMemoDlgContainer, KMemoDlgParaStyle,
 
-  ts.RichEditor.Interfaces;
+  ts.RichEditor.Interfaces, ts.RichEditor.GridSelect.Form, LCLType;
 
 type
   TRichEditorViewList = TComponentList;
@@ -68,15 +68,15 @@ type
     actInsertRowBefore       : TAction;
     actInsertTable           : TAction;
     actDeleteTable           : TAction;
-    actImageResize10: TAction;
-    actImageResize66: TAction;
-    actImageResize50: TAction;
-    actImageResize33: TAction;
-    actImageResize25: TAction;
-    actImageResize75: TAction;
-    actImageResize100: TAction;
-    actImageResizeMenu: TAction;
-    actImageResize90: TAction;
+    actImageResize10         : TAction;
+    actImageResize66         : TAction;
+    actImageResize50         : TAction;
+    actImageResize33         : TAction;
+    actImageResize25         : TAction;
+    actImageResize75         : TAction;
+    actImageResize100        : TAction;
+    actImageResizeMenu       : TAction;
+    actImageResize90         : TAction;
     actShowStructureViewer   : TAction;
     actItalic                : TAction;
     actNumberedList          : TAction;
@@ -105,6 +105,8 @@ type
     dlgOpen                  : TOpenDialog;
     dlgSave                  : TSaveDialog;
     imlMain                  : TImageList;
+    MenuItem1: TMenuItem;
+    ppmDummy: TPopupMenu;
     ppmImageResize           : TPopupMenu;
     ppmClipboard             : TPopupMenu;
     ppmFile                  : TPopupMenu;
@@ -172,14 +174,20 @@ type
     procedure actToggleWordWrapExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
+    procedure ppmInsertMeasureItem(Sender: TObject; ACanvas: TCanvas;
+      var AWidth, AHeight: Integer);
     {$ENDREGION}
 
   private
-    FViews      : TRichEditorViewList;
-    FActiveView : IRichEditorView;
-    FEvents     : IRichEditorEvents;
-    FToolViews  : IRichEditorToolViews;
-    function GetImageResizePopupMenu: TPopupMenu;
+    FGridSelectForm      : TGridSelectForm;
+    FInsertTableMenuItem : TMenuItem;
+    FViews               : TRichEditorViewList;
+    FActiveView          : IRichEditorView;
+    FEvents              : IRichEditorEvents;
+    FToolViews           : IRichEditorToolViews;
+    procedure FInsertTableMenuItemClick(Sender: TObject);
+    procedure FInsertTableMenuItemMeasureItem(Sender: TObject;
+      ACanvas: TCanvas; var AWidth, AHeight: Integer);
 
   protected
     {$REGION 'property access mehods'}
@@ -188,10 +196,13 @@ type
     function GetToolViews: IRichEditorToolViews;
     function GetActiveView: IRichEditorView;
     function GetClipboardPopupMenu: TPopupMenu;
+    function GetGridSelectForm: TForm;
     function GetEditorPopupMenu: TPopupMenu;
     function GetEvents: IRichEditorEvents;
     function GetFilePopupMenu: TPopupMenu;
+    function GetInsertTableMenuItem: TMenuItem;
     function GetInsertPopupMenu: TPopupMenu;
+    function GetImageResizePopupMenu: TPopupMenu;
     function GetItem(AName: string): TContainedAction;
     function GetSelectionPopupMenu: TPopupMenu;
     function GetSelectPopupMenu: TPopupMenu;
@@ -253,6 +264,12 @@ type
     property Items[AName: string]: TContainedAction
       read GetItem; default;
 
+    property GridSelectForm: TForm
+      read GetGridSelectForm;
+
+    property InsertTableMenuItem: TMenuItem
+      read GetInsertTableMenuItem;
+
     property Views[AIndex: Integer]: IRichEditorView
       read GetView;
 
@@ -296,8 +313,6 @@ implementation
 {$R *.lfm}
 
 uses
-  Graphics,
-
   ts.Core.Utils, ts.Core.Logger,
 
   ts.RichEditor.ToolViews, ts.RichEditor.Events, ts.RichEditor.View.KMemo,
@@ -314,6 +329,8 @@ begin
   actAlignJustify.Visible := False; // not supported yet by KMemo
   actUndo.Visible         := False; // not supported yet by KMemo
   actRedo.Visible         := False; // not supported yet by KMemo
+  FGridSelectForm         := TGridSelectForm.Create(Self);
+  FGridSelectForm.Visible := False;
   InitializePopupMenus;
   RegisterToolViews;
 end;
@@ -677,10 +694,8 @@ end;
 
 procedure TdmRichEditorManager.actInsertTableExecute(Sender: TObject);
 begin
-  if Assigned(ActiveView) then
-  begin
-    ActiveView.CreateTable(2, 2);
-  end;
+//  FInsertTableMenuItem.Click;
+  //ShowMessage('test');
 end;
 
 procedure TdmRichEditorManager.actSelectTableExecute(Sender: TObject);
@@ -886,6 +901,35 @@ begin
   end;
 end;
 
+procedure TdmRichEditorManager.ppmInsertMeasureItem(Sender: TObject;
+  ACanvas: TCanvas; var AWidth, AHeight: Integer);
+begin
+  if Sender = ppmDummy then
+    ShowMessage((Sender as TMenuItem).Caption);
+   //AWidth :=  1;
+end;
+
+procedure TdmRichEditorManager.FInsertTableMenuItemMeasureItem(Sender: TObject;
+  ACanvas: TCanvas; var AWidth, AHeight: Integer);
+begin
+
+end;
+
+procedure TdmRichEditorManager.FInsertTableMenuItemClick(Sender: TObject);
+begin
+  //ShowMessage('Clicked');
+end;
+
+function TdmRichEditorManager.GetInsertTableMenuItem: TMenuItem;
+begin
+  Result := FInsertTableMenuItem;
+end;
+
+function TdmRichEditorManager.GetGridSelectForm: TForm;
+begin
+  Result := FGridSelectForm;
+end;
+
 function TdmRichEditorManager.GetImageResizePopupMenu: TPopupMenu;
 begin
   Result := ppmImageResize;
@@ -927,6 +971,7 @@ begin
   //AddMenuItem(MI);
   //AddMenuItem(MI, actUndo); // not supported yet
   //AddMenuItem(MI, actRedo); // not supported yet
+
 end;
 
 procedure TdmRichEditorManager.BuildImageResizeMenu;
@@ -948,16 +993,28 @@ end;
 
 procedure TdmRichEditorManager.BuildInsertPopupMenu;
 var
-  MI : TMenuItem;
+  MI  : TMenuItem;
+  SMI : TMenuItem;
 begin
   MI := InsertPopupMenu.Items;
   MI.Clear;
   MI.Action := actInsertMenu;
   AddMenuItem(MI, actInsertBulletList);
-  AddMenuItem(MI, actInsertTable);
+
+  //FInsertTableMenuItem := AddMenuItem(MI, actInsertTable);
+
+  //SMI := AddMenuItem(MI, ppmDummy);
+  //SMI.Action := actInsertTable;
+
+  //FInsertTableMenuItem := AddMenuItem(SMI, nil, False);
+  //FInsertTableMenuItem.Action := nil;
+
   AddMenuItem(MI, actInsertImage);
   AddMenuItem(MI, actInsertHyperLink);
   AddMenuItem(MI, actAddParagraph);
+
+  //FInsertTableMenuItem.OnClick := FInsertTableMenuItemClick;
+  //FInsertTableMenuItem.OnMeasureItem := ppmInsertMeasureItem;
 end;
 
 procedure TdmRichEditorManager.BuildTablePopupMenu;

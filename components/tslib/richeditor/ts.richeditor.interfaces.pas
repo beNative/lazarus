@@ -25,7 +25,7 @@ uses
 
   KMemo,
 
-  ts.Core.Types;
+  ts.Core.Interfaces, ts.Core.Types;
 
  { All supported actions by the editor views, and holds a collection of all
     registered views. }
@@ -33,13 +33,14 @@ type
   IRichEditorActions   = interface;
   IRichEditorToolView  = interface;
   IRichEditorToolViews = interface;
+  IRichEditorManager   = interface;
 
   TRichEditorToolViewEvent = procedure(
     Sender              : TObject;
     ARichEditorToolView : IRichEditorToolView
   ) of object;
 
-  IRichEditorView = interface
+  IRichEditorView = interface(IControl)
   ['{9F85A3C6-584D-497F-9C5C-7300D7AEF92E}']
     {$REGION 'property access methods'}
     function GetActions: IRichEditorActions;
@@ -60,6 +61,7 @@ type
     function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     function GetIsInsideOfTable: Boolean;
+    function GetManager: IRichEditorManager;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
@@ -85,7 +87,7 @@ type
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetParent(NewParent: TWinControl);
-    procedure SetPopupMenu(const AValue: TPopupMenu);
+    //procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetReadOnly(AValue: Boolean);
     procedure SetRTFText(AValue: string);
     procedure SetSelEnd(const AValue: Integer);
@@ -166,6 +168,9 @@ type
 
     property Actions: IRichEditorActions
       read GetActions;
+
+    property Manager: IRichEditorManager
+      read GetManager;
 
     property BackgroundColor: TColor
       read GetBackgroundColor write SetBackgroundColor;
@@ -338,6 +343,8 @@ type
     function GetEditorPopupMenu: TPopupMenu;
     function GetActiveView: IRichEditorView;
     function GetEvents: IRichEditorEvents;
+    function GetGridSelectForm: TForm;
+    function GetInsertTableMenuItem: TMenuItem;
     function GetToolViews: IRichEditorToolViews;
     function GetViewByName(AName: string): IRichEditorView;
     procedure SetActiveView(const AValue: IRichEditorView);
@@ -369,6 +376,12 @@ type
 
     property ToolViews: IRichEditorToolViews
       read GetToolViews;
+
+    property GridSelectForm: TForm
+      read GetGridSelectForm;
+
+    property InsertTableMenuItem: TMenuItem
+      read GetInsertTableMenuItem;
 
     property Views[AIndex: Integer]: IRichEditorView
       read GetView;

@@ -271,8 +271,8 @@ function GetFileCreationTime(const AFileName: string): TDateTime;
   item will be created. }
 
 function AddMenuItem(
-  AParent : TMenuItem;
-  AAction : TBasicAction = nil
+  AParent  : TMenuItem;
+  AAction  : TBasicAction = nil
 ): TMenuItem; overload;
 
 { Adds a submenu linked to the given parent menu item. }
@@ -2281,6 +2281,9 @@ function AddMenuItem(AParent: TMenuItem; AAction: TBasicAction): TMenuItem;
 var
   MI : TMenuItem;
 begin
+  if not Assigned(AParent) then
+    raise Exception.Create('AParent not assigned!');
+
   if not Assigned(AAction) then
   begin
     AParent.AddSeparator;

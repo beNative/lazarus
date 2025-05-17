@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Menus, ActnList, Graphics,
 
-  ts.Core.Types;
+  ts.Core.Interfaces, ts.Core.Types;
 
 { All supported actions by the editor views, and holds a collection of all
   registered views. }
@@ -37,7 +37,7 @@ type
     AHtmlEditorToolView : IHtmlEditorToolView
   ) of object;
 
-  IHtmlEditorView = interface
+  IHtmlEditorView = interface(IControl)
   ['{9F4CFE82-8E45-44FB-806E-015C70FF604F}']
     {$REGION 'property access methods'}
     function GetActions: IHtmlEditorActions;
@@ -72,7 +72,6 @@ type
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetOnInitialized: TNotifyEvent;
-    function GetPopupMenu: TPopupMenu;
     function GetScriptEnabled: Boolean;
     function GetSelAvail: Boolean;
     function GetSelText: string;
@@ -101,8 +100,6 @@ type
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnInitialized(AValue: TNotifyEvent);
-    procedure SetParent(NewParent: TWinControl);
-    procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetScriptEnabled(AValue: Boolean);
     procedure SetSelText(const AValue: string);
     procedure SetSourceVisible(AValue: Boolean);
@@ -293,9 +290,6 @@ type
 
     property Modified: Boolean
       read GetModified write SetModified;
-
-    property PopupMenu: TPopupMenu
-      read GetPopupMenu write SetPopupMenu;
 
     property OnDropFiles: TDropFilesEvent
       read GetOnDropFiles write SetOnDropFiles;

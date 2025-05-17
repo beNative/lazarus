@@ -392,6 +392,8 @@ type
     function GetIsNavigating: Boolean;
     function GetIsSourceEmpty: Boolean;
     function GetModified: Boolean;
+    function GetName: string;
+    function GetParent: TWinControl;
     function GetOffline: Boolean;
     function GetOnAfterCreated: TNotifyEvent;
     function GetOnChange: TNotifyEvent;
@@ -419,11 +421,12 @@ type
     procedure SetHtmlText(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
     procedure SetModified(const AValue: Boolean);
+    procedure SetName(AValue: string); reintroduce;
     procedure SetOffline(AValue: Boolean);
     procedure SetOnAfterCreated(AValue: TNotifyEvent);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
-    procedure SetPopupMenu(const AValue: TPopupMenu);
+    procedure SetPopupMenu(AValue: TPopupMenu);
     procedure SetScriptEnabled(AValue: Boolean);
     procedure SetSelText(const AValue: string);
     procedure SetSource(AValue: string);
@@ -585,6 +588,10 @@ type
     property HtmlText: string
       read GetHtmlText write SetHtmlText;
 
+    { Component name }
+     property Name: string
+       read GetName write SetName;
+
     property Text: string
       read GetText write SetText;
 
@@ -611,6 +618,9 @@ type
 
     property Modified: Boolean
       read GetModified write SetModified;
+
+    property Parent: TWinControl
+      read GetParent write SetParent;
 
     property PopupMenu: TPopupMenu
       read GetPopupMenu write SetPopupMenu;
@@ -1676,6 +1686,16 @@ begin
   Result := FModified;
 end;
 
+function THtmlEditorView.GetName: string;
+begin
+  Result := inherited Name;
+end;
+
+function THtmlEditorView.GetParent: TWinControl;
+begin
+  Result := inherited Parent;
+end;
+
 function THtmlEditorView.GetOnChange: TNotifyEvent;
 begin
   Result := FOnChange;
@@ -1760,6 +1780,11 @@ begin
   end;
 end;
 
+procedure THtmlEditorView.SetName(AValue: string);
+begin
+  inherited Name := AValue;
+end;
+
 procedure THtmlEditorView.SetOnChange(const AValue: TNotifyEvent);
 begin
   FOnChange := AValue;
@@ -1770,10 +1795,9 @@ begin
   FOnDropFiles := AValue;
 end;
 
-procedure THtmlEditorView.SetPopupMenu(const AValue: TPopupMenu);
+procedure THtmlEditorView.SetPopupMenu(AValue: TPopupMenu);
 begin
   WVWindowParent.PopupMenu := AValue;
-  //edtSource.PopupMenu      := AValue;
 end;
 
 procedure THtmlEditorView.SetSelText(const AValue: string);

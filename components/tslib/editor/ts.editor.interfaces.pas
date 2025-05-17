@@ -33,7 +33,7 @@ uses
   SynEdit, SynEditTypes, SynEditHighlighter, SynMacroRecorder,
   SynEditPointClasses,
 
-  ts.Core.FormSettings, ts.Core.Utils,
+  ts.Core.Interfaces, ts.Core.FormSettings, ts.Core.Utils,
 
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
@@ -62,31 +62,6 @@ type
     Sender          : TObject;
     AEditorToolView : IEditorToolView
   ) of object;
-
-  IControl = interface
-  ['{303F3DE1-81F5-473B-812B-7DD4C306725B}']
-    {$REGION 'property access methods'}
-    function GetName: string;
-    function GetParent: TWinControl;
-    function GetPopupMenu: TPopupMenu;
-    procedure SetName(AValue: string);
-    procedure SetParent(AValue: TWinControl);
-    procedure SetPopupMenu(AValue: TPopupMenu);
-    {$ENDREGION}
-
-    function Focused: Boolean;
-    procedure SetFocus;
-    function Canfocus: Boolean;
-
-    property Parent: TWinControl
-      read GetParent write SetParent;
-
-    property PopupMenu: TPopupMenu
-      read GetPopupMenu write SetPopupMenu;
-
-    property Name: string
-      read GetName write SetName;
-  end;
 
   { Handles display view of the editor. }
 

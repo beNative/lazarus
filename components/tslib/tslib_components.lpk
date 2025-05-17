@@ -46,75 +46,51 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="17">
+    <Files Count="11">
       <Item1>
         <Filename Value="components\ts.components.dbgridview.pas"/>
         <UnitName Value="ts.Components.DBGridView"/>
       </Item1>
       <Item2>
-        <Filename Value="components\ts.components.docking.optionsdialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item2>
-      <Item3>
-        <Filename Value="components\ts.components.docking.optionsdialog.pas"/>
-        <UnitName Value="ts.Components.Docking.OptionsDialog"/>
-      </Item3>
-      <Item4>
-        <Filename Value="components\ts.components.docking.lrs"/>
-        <Type Value="LRS"/>
-      </Item4>
-      <Item5>
-        <Filename Value="components\ts.components.docking.pas"/>
-        <UnitName Value="ts.Components.Docking"/>
-      </Item5>
-      <Item6>
-        <Filename Value="components\ts.components.docking.resources.pas"/>
-        <UnitName Value="ts.Components.Docking.Resources"/>
-      </Item6>
-      <Item7>
-        <Filename Value="components\ts.components.docking.storage.pas"/>
-        <UnitName Value="ts.Components.Docking.Storage"/>
-      </Item7>
-      <Item8>
         <Filename Value="components\ts.components.exportrtf.pas"/>
         <UnitName Value="ts.Components.ExportRTF"/>
-      </Item8>
-      <Item9>
+      </Item2>
+      <Item3>
         <Filename Value="components\ts.components.fileassociation.pas"/>
         <UnitName Value="ts.Components.FileAssociation"/>
-      </Item9>
-      <Item10>
+      </Item3>
+      <Item4>
         <Filename Value="components\ts.components.gridview.pas"/>
         <UnitName Value="ts.Components.GridView"/>
-      </Item10>
-      <Item11>
+      </Item4>
+      <Item5>
         <Filename Value="components\ts.components.inspector.pas"/>
         <UnitName Value="ts.Components.Inspector"/>
-      </Item11>
-      <Item12>
+      </Item5>
+      <Item6>
         <Filename Value="components\ts.components.multipanel.pas"/>
         <UnitName Value="ts.Components.MultiPanel"/>
-      </Item12>
-      <Item13>
+      </Item6>
+      <Item7>
         <Filename Value="components\ts.components.synminimap.pas"/>
         <UnitName Value="ts.Components.SynMiniMap"/>
-      </Item13>
-      <Item14>
+      </Item7>
+      <Item8>
         <Filename Value="components\ts.components.unihighlighter.pas"/>
         <UnitName Value="ts.Components.UNIHighlighter"/>
-      </Item14>
-      <Item15>
+      </Item8>
+      <Item9>
         <Filename Value="components\ts.components.uniqueinstance.pas"/>
         <UnitName Value="ts.Components.UniqueInstance"/>
-      </Item15>
-      <Item16>
+      </Item9>
+      <Item10>
         <Filename Value="components\ts.components.virtualdbtreeex.pas"/>
         <UnitName Value="ts.Components.VirtualDBTreeEx"/>
-      </Item16>
-      <Item17>
+      </Item10>
+      <Item11>
         <Filename Value="components\ts.components.virtualpages.pas"/>
         <UnitName Value="ts.Components.VirtualPages"/>
-      </Item17>
+      </Item11>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="3">

@@ -113,7 +113,6 @@ type
   protected
     procedure CreateTreeView;
 
-    function ActiveBlocks: TKMemoBlocks;
     function AddNodes(AKMemoBlock: TKMemoContainer): Boolean;
     function AddBlockToTree(
       ABlock  : TKMemoBlock;
@@ -197,14 +196,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
-
-//var
-//  N : TVTNode<TKMemoBlock>;
-//begin
-//  N := FRootNode.Find(ABlock);
-//  if Assigned(N) and Assigned(N.VNode) then
-//    N.Select;
-
 procedure TStructureToolView.FTreeDragAllowed(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; var Allowed: Boolean);
 begin
@@ -215,21 +206,21 @@ end;
 procedure TStructureToolView.FTreeDragDrop(Sender: TBaseVirtualTree;
   Source: TObject; DataObject: IDataObject; Formats: TFormatArray;
   Shift: TShiftState; const Pt: TPoint; var Effect: LongWord; Mode: TDropMode);
-//var
-//  LAttachMode : TVTNodeAttachMode;
-//  LNode       : TBlockNode;
+var
+  LAttachMode : TVTNodeAttachMode;
+  LNode       : TBlockNode;
 begin
-  //LNode := TVTNode<TKMemoBlock>(Sender.GetNodeData(Sender.GetNodeAt(Pt.x, Pt.y))^);
-  //Sender.FocusedNode := LNode.VNode;
-  //LNode.Data.ParentBlocks.AddAt(FDraggedNode.Data);
-  //if Mode = dmOnNode then
-  //  LAttachMode := amInsertBefore
-  //else if Mode = dmAbove then
-  //  LAttachMode := amInsertBefore
-  //else if Mode = dmBelow then
-  //  LAttachMode := amInsertAfter
-  //else
-  //  LAttachMode := amAddChildLast;
+  LNode := TVTNode<TKMemoBlock>(Sender.GetNodeData(Sender.GetNodeAt(Pt.x, Pt.y))^);
+  Sender.FocusedNode := LNode.VNode;
+  LNode.Data.ParentBlocks.AddAt(FDraggedNode.Data);
+  if Mode = dmOnNode then
+    LAttachMode := amInsertBefore
+  else if Mode = dmAbove then
+    LAttachMode := amInsertBefore
+  else if Mode = dmBelow then
+    LAttachMode := amInsertAfter
+  else
+    LAttachMode := amAddChildLast;
 end;
 
 procedure TStructureToolView.FTreeDragOver(Sender: TBaseVirtualTree;
@@ -393,30 +384,12 @@ begin
   FTree.OnGetImageIndex := FTreeGetImageIndex;
   FTree.OnGetHint       := FTreeGetHint;
   FTree.OnDragAllowed   := FTreeDragAllowed;
-  FTree.OnDragDrop      := FTreeDragDrop;
+  // not working yet
+  //FTree.OnDragDrop      := FTreeDragDrop;
   FTree.OnDragOver      := FTreeDragOver;
   FRootData      := TKMemoBlock.Create;
   FRootNode      := TVTNode<TKMemoBlock>.Create(FTree, FRootData, False);
   FRootNode.Text := 'Root';
-end;
-
-function TStructureToolView.ActiveBlocks: TKMemoBlocks;
-begin
-  if Assigned(SelectedBlock) then
-  begin
-    if SelectedBlock is TKMemoContainer then
-    begin
-      Result := (SelectedBlock as TKMemoContainer).Blocks;
-    end
-    else
-    begin
-      Result := SelectedBlock.ParentBlocks;
-    end;
-  end
-  else
-  begin
-    Result := KMemo.ActiveBlocks;
-  end;
 end;
 
 function TStructureToolView.AddNodes(AKMemoBlock: TKMemoContainer): Boolean;

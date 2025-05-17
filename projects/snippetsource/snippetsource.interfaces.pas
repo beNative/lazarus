@@ -298,7 +298,11 @@ type
 
   ITerminal = interface
   ['{7CF9C5B0-31DA-4F82-9ADB-CE3C323DE119}']
-    procedure Execute(const ACommand: string);
+    procedure Execute(
+      const ACommand          : string;
+      const AWorkingDirectory : string = ''
+    );
+    procedure Terminate;
     function CreatePythonVenv(
       const APythonPath : string;
       const AVenvName   : string

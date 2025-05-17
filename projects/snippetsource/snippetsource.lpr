@@ -27,7 +27,7 @@ uses
 
   lazcontrols, luicontrols,
   virtualtreeview_package, virtualdbtreeexlaz,
-  cmdbox, tslib_editor, tslib_richeditor, KControlsLaz,
+  tslib_editor, tslib_richeditor, KControlsLaz,
   SQLDBLaz, RunTimeTypeInfoControls, SynEdit, LazUtils,
   python4lazarus_package,
 

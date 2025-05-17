@@ -616,8 +616,11 @@ begin
     begin
       LLastId := (qrySnippet.DataBase as TSQLite3Connection).GetInsertID;
       ADataSet.DisableControls;
+      Logger.Send('Before refresh');
       ADataSet.Refresh;
+      Logger.Send('After refresh');
       ADataSet.Locate('Id', LLastId, []);
+      Logger.Send('After locate');
       ADataSet.EnableControls;
     end;
   end;

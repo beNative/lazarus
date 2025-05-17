@@ -152,6 +152,7 @@ type
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     {$ENDREGION}
 
@@ -177,6 +178,7 @@ type
     FRtfStream                      : TStringStream;
     FUpdateRichTextView             : Boolean;
     FHtmlEditorToggleEditModeAction : TAction;
+    FInsertTableButton              : TToolButton;
 
     {$REGION 'event handlers'}
     procedure FEditorChange(Sender: TObject);
@@ -195,6 +197,7 @@ type
       Sender    : TObject;
       AToolView : IEditorToolView
     );
+    procedure FInsertTableButtonClick(Sender: TObject);
     procedure FSlaveEditorFormEnter(Sender: TObject);
 
     procedure FHtmlEditorAfterCreated(Sender: TObject);
@@ -296,6 +299,9 @@ type
     procedure UpdateViews;
     procedure UpdateToolBars;
 
+    procedure DoAutoAdjustLayout(const AMode: TLayoutAdjustmentPolicy;
+      const AXProportion, AYProportion: Double); override;
+
   public
      procedure AfterConstruction; override;
      destructor Destroy; override;
@@ -335,6 +341,7 @@ uses
 
   ts.Core.Utils, ts.Core.Logger, ts.Core.Helpers, ts.Core.Logger.Channel.IPC,
   ts.Editor.AboutDialog, ts.Richeditor.Factories, ts.HtmlEditor.Factories,
+  ts.RichEditor.GridSelect.Form,
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
   SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources,
@@ -476,6 +483,8 @@ procedure TfrmMain.actTextEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex   := pgTextEditor.PageIndex;
   Snippet.ActiveViews := VIEW_TYPE_TXT;
+  if Editor.Canfocus then
+    Editor.SetFocus;
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
@@ -553,6 +562,8 @@ procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex   := pgHtmlEditor.PageIndex;
   Snippet.ActiveViews := VIEW_TYPE_HTML;
+  //if HtmlEditor.CanFocus then
+    HtmlEditor.SetFocus;
 end;
 
 procedure TfrmMain.actPythonVenvExecute(Sender: TObject);
@@ -564,6 +575,8 @@ procedure TfrmMain.actRtfEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex   := pgRichEditor.PageIndex;
   Snippet.ActiveViews := VIEW_TYPE_RTF;
+  //if RichEditor.CanFocus then
+    RichEditor.SetFocus;
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
@@ -789,11 +802,24 @@ procedure TfrmMain.FileSearcherFileFound(FileIterator: TFileIterator);
 begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
+
+procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  Logger.Enter(Self, 'FormClose');
+  FTerminal.Terminate;
+  Logger.Leave(Self, 'FormClose');
+end;
 {$ENDREGION}
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
+  Logger.Enter(Self, 'FormCloseQuery');
+  if not CanClose then
+  begin
+    CanClose := True;
+  end;
   //dmTerminal.prcTerminal.Active := False;
+  Logger.Leave(Self, 'FormCloseQuery');
 end;
 
 {$REGION 'FTree'}
@@ -944,10 +970,13 @@ var
 begin
   for S in AFileNames do
   begin
+    if RichEditor.Form.CanFocus and RichEditor.Editor.CanFocus then
+      RichEditor.Editor.SetFocus;
     RichEditor.InsertImageFile(S);
     Logger.IncCounter('DroppedCount');
   end;
   SaveRtfData;
+  ActiveControl := FRichEditor.Form;
 end;
 
 procedure TfrmMain.FRichEditorFormEnter(Sender: TObject);
@@ -995,6 +1024,20 @@ begin
   pnlEditorToolViewHost.Visible   := True;
 end;
 
+procedure TfrmMain.FInsertTableButtonClick(Sender: TObject);
+var
+  P               : TPoint;
+  LGridSelectForm : TGridSelectForm;
+begin
+  // Custom size for each menu item
+  LGridSelectForm := FRichEditorManager.GridSelectForm as TGridSelectForm;
+  P := Mouse.CursorPos; // Get screen coordinates
+  LGridSelectForm.Left := P.X;
+  LGridSelectForm.Top := P.Y;
+  LGridSelectForm.ShowModal;
+  RichEditor.CreateTable(LGridSelectForm.Cols, LGridSelectForm.Rows);
+end;
+
 procedure TfrmMain.FHtmlEditorAfterCreated(Sender: TObject);
 begin
   nbRight.PageIndex := 0;
@@ -1011,9 +1054,7 @@ end;
 procedure TfrmMain.FHtmlEditorInitialized(Sender: TObject);
 begin
   Logger.Enter(Self, 'FHtmlEditorInitialized');
-
   InitializeNodeRecord;
-
   Logger.Leave(Self, 'FHtmlEditorInitialized');
 end;
 
@@ -1042,8 +1083,6 @@ end;
 {$REGION 'private methods'}
 procedure TfrmMain.CreateTreeview;
 begin
-  Logger.Enter(Self, 'CreateTreeview');
-
   FTree                          := TfrmVirtualDBTree.Create(Self);
   FTree.DoubleBuffered           := True;
   FTree.Parent                   := pnlLeft;
@@ -1062,18 +1101,12 @@ begin
   FTree.OnMoveDownSelectedNodes  := FTreeMoveDownSelectedNodes;
   FTree.OnCopyNodeData           := FTreeCopyNodeData;
   FTree.OnClearNodeData          := FTreeClearNodeData;
-
-  //dctMain.Target := FTree;
-
-  Logger.Leave(Self, 'CreateTreeview');
 end;
 
 procedure TfrmMain.CreateTextEditor;
 var
   LEvents : IEditorEvents;
 begin
-  Logger.Enter(Self, 'CreateTextEditor');
-
   FEditorManager := TEditorFactories.CreateManager(
     Self, FSettings.TextEditorSettings as IEditorSettings
   );
@@ -1099,14 +1132,10 @@ begin
   btnHighlighter.Menu         := FEditorManager.Menus.HighlighterPopupMenu;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
   BuildTextEditorToolBar;
-
-  Logger.Leave(Self, 'CreateTextEditor');
 end;
 
 procedure TfrmMain.CreateRichEditor;
 begin
-  Logger.Enter(Self, 'CreateRichEditor');
-
   FRichEditorManager := TRichEditorFactories.CreateManager(Self);
   FRichEditor := TRichEditorFactories.CreateView(
     pnlRichEditor,
@@ -1117,17 +1146,13 @@ begin
   FRichEditor.Form.OnEnter := FRichEditorFormEnter;
   FRichEditor.OnChange     := FRichEditorChange;
   FRichEditor.OnDropFiles  := FRichEditorDropFiles;
-  FRichEditor.PopupMenu    := FRichEditorManager.EditorPopupMenu;
+  //FRichEditor.PopupMenu    := FRichEditorManager.EditorPopupMenu;
   FRichEditorManager.Events.OnShowRichEditorToolView := FRichEditorShowToolView;
   BuildRichEditorToolBar;
-
-  Logger.Leave(Self, 'CreateRichEditor');
 end;
 
 procedure TfrmMain.CreateHtmlEditor;
 begin
-  Logger.Enter(Self, 'CreateHtmlEditor');
-
   // TODO: Now page must be active to create the HtmlEditor correctly! This is
   // a temporary work-around until we figure out what is causing this issue.
   nbRight.PageIndex := 2;
@@ -1146,8 +1171,6 @@ begin
   FHtmlEditorToggleEditModeAction :=
     FHtmlEditorManager.Actions['actToggleEditMode'] as TAction;
   BuildHtmlEditorToolBar;
-
-  Logger.Leave(Self, 'CreateHtmlEditor');
 end;
 
 procedure TfrmMain.AssignTextEditorChanges;
@@ -1250,6 +1273,7 @@ begin
   AddToolBarButton(TB);
   AddToolBarButton(TB, AL, 'actInsertHyperlink');
   AddToolBarButton(TB, AL, 'actInsertImage');
+  FInsertTableButton := AddToolBarButton(TB, AL, 'actInsertTable');
   AddToolBarButton(TB);
   AddToolBarButton(TB, AL, 'actClear');
   AddToolBarButton(TB, AL, 'actShowPreview');
@@ -1262,6 +1286,8 @@ begin
   AddToolBarButton(TB, AL, 'actInsertRowAfter');
   AddToolBarButton(TB, AL, 'actDeleteRow');
   AddToolBarButton(TB, AL, 'actDeleteColumn');
+
+  FInsertTableButton.OnClick := FInsertTableButtonClick;
 end;
 
 procedure TfrmMain.BuildHtmlEditorToolBar;
@@ -1336,7 +1362,8 @@ var
   LButton : TToolButton;
   I       : Integer;
 begin
-  LWidth := 2;
+  //LWidth := 2;
+  LWidth := 0;
   for I := 0 to tlbApplication.ButtonCount - 1 do
   begin
     LButton := tlbApplication.Buttons[I];
@@ -1614,7 +1641,6 @@ begin
       ) <> nil;
     end;
   end;
-
   if LIsDir or (LIsTextFile and LIsReadable) or LIsImage then
   begin
     LRelPath    := CreateRelativePath(APath, ACommonPath);
@@ -1743,7 +1769,6 @@ begin
   finally
     DataSet.Post;
   end;
-
 
   Logger.Leave(Self, 'AddURLNode');
 end;
@@ -1875,6 +1900,13 @@ begin
   actRtfEditor.Checked  := nbRight.ActivePageComponent = pgRichEditor;
   actTextEditor.Checked := nbRight.ActivePageComponent = pgTextEditor;
   FHtmlEditorToggleEditModeAction.Enabled := not Snippet.Locked;
+end;
+
+procedure TfrmMain.DoAutoAdjustLayout(const AMode: TLayoutAdjustmentPolicy;
+  const AXProportion, AYProportion: Double);
+begin
+  inherited DoAutoAdjustLayout(AMode, AXProportion, AYProportion);
+  UpdateStatusBar;
 end;
 {$ENDREGION}
 

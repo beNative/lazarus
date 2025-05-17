@@ -1,0 +1,30 @@
+object dmTerminal: TdmTerminal
+  OldCreateOrder = False
+  Height = 240
+  HorizontalOffset = 3060
+  VerticalOffset = 379
+  Width = 254
+  PPI = 144
+  object prcTerminal: TProcess
+    Active = False
+    Options = []
+    Priority = ppNormal
+    StartupOptions = [suoUseShowWindow]
+    ShowWindow = swoShow
+    WindowColumns = 0
+    WindowHeight = 0
+    WindowLeft = 0
+    WindowRows = 0
+    WindowTop = 0
+    WindowWidth = 0
+    FillAttribute = 0
+    InputDescriptor.IOType = iotDefault
+    InputDescriptor.FileWriteMode = fwmTruncate
+    OutputDescriptor.IOType = iotDefault
+    OutputDescriptor.FileWriteMode = fwmTruncate
+    ErrorDescriptor.IOType = iotDefault
+    ErrorDescriptor.FileWriteMode = fwmTruncate
+    Left = 64
+    Top = 32
+  end
+end

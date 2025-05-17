@@ -1,0 +1,31 @@
+object dmPython: TdmPython
+  OldCreateOrder = False
+  Height = 140
+  HorizontalOffset = 966
+  VerticalOffset = 332
+  Width = 320
+  PPI = 144
+  object PythonEngine: TPythonEngine
+    AutoLoad = False
+    DllName = 'python312.dll'
+    APIVersion = 1013
+    RegVersion = '3.12'
+    UseLastKnownVersion = False
+    VenvPythonExe = '.\venv\Scripts\python.exe'
+    InitScript.Strings = (
+      'import sys'
+      'import os'
+      'os.system("")'
+      'sys.stdout = sys.stderr= open("CONOUT$", "wt")'
+      'from rich import print'
+    )
+    Left = 48
+    Top = 24
+  end
+  object PythonInputOutput: TPythonInputOutput
+    UnicodeIO = True
+    RawOutput = False
+    Left = 192
+    Top = 24
+  end
+end

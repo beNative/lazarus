@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 968
+  Left = 1684
   Height = 993
-  Top = 80
+  Top = 129
   Width = 1666
   Caption = 'SnippetSource'
   ClientHeight = 993
@@ -16,6 +16,7 @@ object frmMain: TfrmMain
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
   LCLVersion = '4.99.0.0'
+  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   object pnlLeft: TPanel
     Left = 0

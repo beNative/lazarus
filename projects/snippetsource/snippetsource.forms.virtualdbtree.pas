@@ -1019,7 +1019,7 @@ begin
     TreeOptions.SelectionOptions := [toMultiSelect, toCenterScrollIntoView];
     TreeOptions.StringOptions    := [toAutoAcceptEditChange];
   end;
-  FTreeView.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
+  //FTreeView.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
 end;
 {$ENDREGION}
 

@@ -36,6 +36,7 @@ uses
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
   KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, KDialogs,
+  KFunctions,
 
   DropComboTarget,
 
@@ -117,8 +118,6 @@ type
     );
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    procedure InsertTableMenuItemDrawItem(Sender: TObject; ACanvas: TCanvas;
-      ARect: TRect; AState: TOwnerDrawState);
 
     procedure InsertTableMenuItemMeasureItem(Sender: TObject;
           ACanvas: TCanvas; var AWidth, AHeight: Integer);
@@ -251,6 +250,7 @@ type
     procedure Cut;
     procedure Copy;
     procedure Paste;
+    procedure CopyAllToClipboard;
     procedure Undo;
     procedure Redo;
 
@@ -386,7 +386,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StdCtrls, Math, StrUtils, Printers,
+  StdCtrls, Math, StrUtils, Printers, Clipbrd, Windows,
 
   keditcommon, kgraphics,
 
@@ -921,12 +921,6 @@ begin
     FEditor.NewTextStyle := FTextStyle;
   Modified := True;
   DoChange;
-end;
-
-procedure TRichEditorViewKMemo.InsertTableMenuItemDrawItem(Sender: TObject;
-  ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
-begin
-  //
 end;
 
 function TRichEditorViewKMemo.GetManager: IRichEditorManager;
@@ -1648,6 +1642,21 @@ end;
 procedure TRichEditorViewKMemo.Paste;
 begin
   FEditor.ExecuteCommand(ecPaste);
+end;
+
+procedure TRichEditorViewKMemo.CopyAllToClipboard;
+var
+  LStream : TMemoryStream;
+  S       : TKString;
+begin
+  S := Editor.Text;
+  LStream := TMemoryStream.Create;
+  try
+    Editor.SaveToRTFStream(LStream);
+    ClipBoardSaveStreamAs(cRichText, LStream, S);
+  finally
+    LStream.Free;
+  end;
 end;
 
 procedure TRichEditorViewKMemo.Undo;

@@ -282,6 +282,8 @@ uses
   SynHighlighterPike, SynHighlighterVB, SynHighlighterCS, SynHighlighterRC,
   SynHighlighterRuby, SynHighlighterInno, SynHighlighterJSON,
 
+  ts.Components.SynHighlighterMarkdown,
+
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
   ts.Core.Utils,
@@ -1048,7 +1050,8 @@ begin
     TSynUNIXShellScriptSyn,
     TSynVBSyn,
     TSynXMLSyn,
-    TSynSelectedColor
+    TSynSelectedColor,
+    TSynMarkdownSyn
   ]);
 end;
 
@@ -1103,6 +1106,7 @@ begin
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
   Reg(TSynVBSyn, nil, HL_VB, FILE_EXTENSIONS_VB, SVBDescription, '', '', '');
   Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXmlFormatter.Create);
+  Reg(TSynMarkdownSyn, nil, HL_MD, FILE_EXTENSIONS_MD, SMDDescription);
 end;
 
 procedure TEditorSettings.InitializeFoldHighlighters

@@ -59,6 +59,7 @@ const
   HL_TXT  = 'TXT';
   HL_VB   = 'VB';
   HL_XML  = 'XML';
+  HL_MD   = 'MD';
 
   // ToolViews
   TV_ALIGNLINES     = 'AlignLines';
@@ -169,6 +170,7 @@ const
   FILE_EXTENSIONS_VB   = 'vb';
   FILE_EXTENSIONS_RC   = 'rc';
   FILE_EXTENSIONS_ISS  = 'iss';
+  FILE_EXTENSIONS_MD   = 'md';
 
 resourcestring
   STextNotFound = 'Text not found';
@@ -203,6 +205,7 @@ resourcestring
   STXTDescription  = 'Text document';
   SVBDescription   = 'Visual Basic';
   SXMLDescription  = 'XML document';
+  SMDDescription   = 'Markdown document';
 
 
   SAskSaveChanges = 'File %s is modified. Do you want to save changes?';

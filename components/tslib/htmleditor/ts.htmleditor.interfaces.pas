@@ -159,6 +159,7 @@ type
     procedure Copy;
     procedure Paste;
     procedure CopyUrl;
+    procedure CopyAllToClipboard;
 
     procedure Undo;
     procedure Redo;

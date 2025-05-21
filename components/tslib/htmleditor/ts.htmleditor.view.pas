@@ -499,6 +499,7 @@ type
     procedure Copy;
     procedure Paste;
     procedure CopyUrl;
+    procedure CopyAllToClipboard;
 
     procedure Undo;
     procedure Redo;
@@ -2090,6 +2091,11 @@ end;
 procedure THtmlEditorView.CopyUrl;
 begin
   Clipboard.AsText := FSource;
+end;
+
+procedure THtmlEditorView.CopyAllToClipboard;
+begin
+  Clipboard.SetAsHtml(HtmlText, Text);
 end;
 
 procedure THtmlEditorView.Undo;

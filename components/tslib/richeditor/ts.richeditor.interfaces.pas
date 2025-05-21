@@ -152,6 +152,7 @@ type
     procedure Cut;
     procedure Copy;
     procedure Paste;
+    procedure CopyAllToClipboard;
 
     procedure Undo;
     procedure Redo;

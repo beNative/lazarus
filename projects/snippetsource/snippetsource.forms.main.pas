@@ -44,6 +44,7 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actHtmlEditor                   : TAction;
+    actCopySnippet: TAction;
     actStartJupyterLab              : TAction;
     actPythonVenv                   : TAction;
     actToggleSplitView              : TAction;
@@ -71,6 +72,7 @@ type
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
     nbRight                         : TNotebook;
+    pnlFloating: TPanel;
     pnlMulti                        : TOMultiPanel;
     pgHtmlEditor                    : TPage;
     pgRichEditor                    : TPage;
@@ -107,9 +109,11 @@ type
     shpLine1                        : TShape;
     shpRichEditorToolBarLine        : TShape;
     shpTextEditorToolBarLine        : TShape;
+    btnCopySnippet: TSpeedButton;
     splEditorVertical               : TSplitter;
     splRichEditorVertical           : TSplitter;
     splVertical                     : TSplitter;
+    tmrHide: TTimer;
     tlbApplication                  : TToolBar;
     tlbActiveView                   : TToolBar;
     tlbEditorView                   : TToolBar;
@@ -123,6 +127,7 @@ type
     procedure actCloseEditorToolViewExecute(Sender: TObject);
     procedure actCloseRichEditorToolViewExecute(Sender: TObject);
     procedure actConsoleExecute(Sender: TObject);
+    procedure actCopySnippetExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
     procedure actHtmlEditorExecute(Sender: TObject);
     procedure actPythonVenvExecute(Sender: TObject);
@@ -152,8 +157,6 @@ type
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     {$ENDREGION}
 
   private
@@ -386,6 +389,7 @@ begin
   pnlDateModified.Font.Color := clGreen;
   Caption := Format('%s %s', [ApplicationName, FVersionInfo.ProductVersion]);
 
+  pnlFloating.Visible := True;
   Logger.Leave(Self, 'AfterConstruction');
 end;
 
@@ -528,6 +532,22 @@ begin
   //;
 end;
 
+procedure TfrmMain.actCopySnippetExecute(Sender: TObject);
+begin
+  if actHtmlEditor.Checked then
+  begin
+    HtmlEditor.CopyAllToClipboard;
+  end
+  else if actRtfEditor.Checked then
+  begin
+    RichEditor.CopyAllToClipboard;
+  end
+  else if actTextEditor.Checked then
+  begin
+    Editor.CopyAllToClipboard;
+  end;
+end;
+
 procedure TfrmMain.actExecuteExecute(Sender: TObject);
 var
   FS        : TFileStream;
@@ -562,8 +582,7 @@ procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex   := pgHtmlEditor.PageIndex;
   Snippet.ActiveViews := VIEW_TYPE_HTML;
-  //if HtmlEditor.CanFocus then
-    HtmlEditor.SetFocus;
+  HtmlEditor.SetFocus;
 end;
 
 procedure TfrmMain.actPythonVenvExecute(Sender: TObject);
@@ -575,8 +594,7 @@ procedure TfrmMain.actRtfEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex   := pgRichEditor.PageIndex;
   Snippet.ActiveViews := VIEW_TYPE_RTF;
-  //if RichEditor.CanFocus then
-    RichEditor.SetFocus;
+  RichEditor.SetFocus;
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
@@ -802,25 +820,7 @@ procedure TfrmMain.FileSearcherFileFound(FileIterator: TFileIterator);
 begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
-
-procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  Logger.Enter(Self, 'FormClose');
-  FTerminal.Terminate;
-  Logger.Leave(Self, 'FormClose');
-end;
 {$ENDREGION}
-
-procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-begin
-  Logger.Enter(Self, 'FormCloseQuery');
-  if not CanClose then
-  begin
-    CanClose := True;
-  end;
-  //dmTerminal.prcTerminal.Active := False;
-  Logger.Leave(Self, 'FormCloseQuery');
-end;
 
 {$REGION 'FTree'}
 procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);

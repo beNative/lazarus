@@ -302,7 +302,6 @@ type
       const ACommand          : string;
       const AWorkingDirectory : string = ''
     );
-    procedure Terminate;
     function CreatePythonVenv(
       const APythonPath : string;
       const AVenvName   : string

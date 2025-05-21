@@ -39,8 +39,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Options = [sqoKeepOpenOnCommit]
-    Params = <>
-    Macros = <>
     Sequence.FieldName = 'Id'
     Sequence.SequenceName = 'test'
     Left = 60
@@ -61,8 +59,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Options = [sqoKeepOpenOnCommit]
-    Params = <>
-    Macros = <>
     Left = 276
     Top = 120
   end
@@ -77,8 +73,6 @@ object dmSnippetSource: TdmSnippetSource
       '  NodeType'
       ''
     )
-    Params = <>
-    Macros = <>
     Left = 168
     Top = 120
   end
@@ -2752,8 +2746,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
-    Params = <>
-    Macros = <>
     Left = 384
     Top = 120
   end
@@ -2777,8 +2769,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Options = [sqoKeepOpenOnCommit]
-    Params = <>
-    Macros = <>
     Sequence.FieldName = 'Id'
     Sequence.SequenceName = 'test'
     Left = 60
@@ -2787,8 +2777,6 @@ object dmSnippetSource: TdmSnippetSource
   object scrCreateTables: TSQLScript
     DataBase = conMain
     Transaction = trsMain
-    AutoCommit = False
-    UseDollarString = False
     Directives.Strings = (
       'SET TERM'
       'COMMIT WORK'
@@ -2899,10 +2887,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Terminator = ';'
-    CommentsinSQL = True
-    UseSetTerm = True
-    UseCommit = True
-    UseDefines = True
     Left = 180
     Top = 240
   end
@@ -2924,8 +2908,6 @@ object dmSnippetSource: TdmSnippetSource
   object scrCreateIndexes: TSQLScript
     DataBase = conMain
     Transaction = trsMain
-    AutoCommit = False
-    UseDollarString = False
     Directives.Strings = (
       'SET TERM'
       'COMMIT WORK'
@@ -2989,18 +2971,12 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Terminator = ';'
-    CommentsinSQL = True
-    UseSetTerm = True
-    UseCommit = True
-    UseDefines = True
     Left = 324
     Top = 240
   end
   object scrInsertData: TSQLScript
     DataBase = conMain
     Transaction = trsMain
-    AutoCommit = False
-    UseDollarString = False
     Directives.Strings = (
       'SET TERM'
       'COMMIT WORK'
@@ -3410,6 +3386,16 @@ object dmSnippetSource: TdmSnippetSource
       '                            8,'
       '                            null,'
       '                            29'
+      '                        ),'
+      '                        ('
+      '                            null,'
+      '                            0,'
+      '                            ''Markdown document'','
+      '                            ''Markdown'','
+      '                            ''MD'','
+      '                            8,'
+      '                            null,'
+      '                            30'
       '                        );'
       ''
       'delete from NodeType;'
@@ -3435,10 +3421,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Terminator = ';'
-    CommentsinSQL = True
-    UseSetTerm = True
-    UseCommit = True
-    UseDefines = True
     Left = 468
     Top = 240
   end
@@ -3448,8 +3430,6 @@ object dmSnippetSource: TdmSnippetSource
     Database = conMain
     Transaction = trsMain
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
-    Params = <>
-    Macros = <>
     Left = 317
     Top = 372
   end
@@ -3467,8 +3447,6 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
-    Params = <>
-    Macros = <>
     Left = 516
     Top = 120
   end

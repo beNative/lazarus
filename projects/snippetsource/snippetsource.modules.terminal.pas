@@ -21,7 +21,9 @@ unit SnippetSource.Modules.Terminal;
 interface
 
 uses
-  Classes, SysUtils, process, AsyncProcess,
+  Classes, SysUtils,
+
+  process,
 
   SnippetSource.Interfaces;
 
@@ -53,7 +55,6 @@ type
       const ACommand          : string;
       const AWorkingDirectory : string = ''
     );
-    procedure Terminate;
   end;
 
 implementation
@@ -152,16 +153,9 @@ begin
   if AWorkingDirectory <> '' then
     prcTerminal.CurrentDirectory := AWorkingDirectory
   else
-    prcTerminal.CurrentDirectory := ExtractFilePath(ParamStr(0)); // Default or GetCurrentDir
+    prcTerminal.CurrentDirectory := ExtractFilePath(ParamStr(0));
   prcTerminal.Execute;
 end;
-
-procedure TdmTerminal.Terminate;
-begin
-  prcTerminal.Terminate(0);
-  prcTerminal.WaitOnExit;
-end;
-
 {$ENDREGION}
 
 end.

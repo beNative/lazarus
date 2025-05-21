@@ -1,16 +1,16 @@
 object frmMain: TfrmMain
   Left = 984
-  Height = 993
+  Height = 828
   Top = 313
-  Width = 1666
+  Width = 1388
   Caption = 'SnippetSource'
-  ClientHeight = 993
-  ClientWidth = 1666
+  ClientHeight = 828
+  ClientWidth = 1388
   Color = clWindow
-  DesignTimePPI = 144
+  DesignTimePPI = 120
   Font.CharSet = ANSI_CHARSET
   Font.Color = clBlack
-  Font.Height = -17
+  Font.Height = -14
   Font.Name = 'Segoe UI'
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
@@ -18,19 +18,19 @@ object frmMain: TfrmMain
   LCLVersion = '4.99.0.0'
   object pnlLeft: TPanel
     Left = 0
-    Height = 966
+    Height = 805
     Top = 0
-    Width = 423
+    Width = 353
     Align = alLeft
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
   end
   object splVertical: TSplitter
-    Left = 423
-    Height = 966
+    Left = 353
+    Height = 805
     Top = 0
-    Width = 6
+    Width = 5
     AutoSnap = False
     Color = clScrollBar
     MinSize = 50
@@ -39,23 +39,23 @@ object frmMain: TfrmMain
   end
   object pnlStatusBar: TPanel
     Left = 0
-    Height = 27
-    Top = 966
-    Width = 1666
+    Height = 23
+    Top = 805
+    Width = 1388
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 27
-    ClientWidth = 1666
+    ClientHeight = 23
+    ClientWidth = 1388
     Color = clBtnFace
     ParentBackground = False
     ParentColor = False
     TabOrder = 2
     object pnlId: TPanel
-      Left = 1216
-      Height = 27
+      Left = 1012
+      Height = 23
       Hint = 'ID'
       Top = 0
-      Width = 81
+      Width = 68
       Align = alRight
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelColor = clScrollBar
@@ -64,24 +64,24 @@ object frmMain: TfrmMain
       TabOrder = 7
     end
     object pnlLineBreakStyle: TPanel
-      Left = 459
-      Height = 27
+      Left = 384
+      Height = 23
       Hint = 'Current line break style'
       Top = 0
-      Width = 66
+      Width = 55
       Align = alLeft
       BevelColor = clScrollBar
       BevelOuter = bvSpace
-      ClientHeight = 27
-      ClientWidth = 66
+      ClientHeight = 23
+      ClientWidth = 55
       ParentBackground = False
       TabOrder = 4
       object btnLineBreakStyle: TSpeedButton
         Left = 1
-        Height = 25
+        Height = 21
         Hint = 'Line break style'
         Top = 1
-        Width = 64
+        Width = 53
         Align = alClient
         Color = clScrollBar
         Flat = True
@@ -89,11 +89,11 @@ object frmMain: TfrmMain
       end
     end
     object pnlPosition: TPanel
-      Left = 96
-      Height = 27
+      Left = 80
+      Height = 23
       Hint = 'Cursor position'
       Top = 0
-      Width = 225
+      Width = 188
       Align = alLeft
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelColor = clScrollBar
@@ -102,11 +102,11 @@ object frmMain: TfrmMain
       TabOrder = 0
     end
     object pnlEditMode: TPanel
-      Left = 402
-      Height = 27
+      Left = 336
+      Height = 23
       Hint = 'Edit mode'
       Top = 0
-      Width = 57
+      Width = 48
       Align = alLeft
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelColor = clScrollBar
@@ -116,11 +116,11 @@ object frmMain: TfrmMain
       TabOrder = 1
     end
     object pnlDateModified: TPanel
-      Left = 1471
-      Height = 27
+      Left = 1225
+      Height = 23
       Hint = 'Last modification'
       Top = 0
-      Width = 195
+      Width = 163
       Align = alRight
       BevelColor = clScrollBar
       BevelOuter = bvSpace
@@ -128,11 +128,11 @@ object frmMain: TfrmMain
       TabOrder = 3
     end
     object pnlDateCreated: TPanel
-      Left = 1297
-      Height = 27
+      Left = 1080
+      Height = 23
       Hint = 'Creation date'
       Top = 0
-      Width = 174
+      Width = 145
       Align = alRight
       BevelColor = clScrollBar
       BevelOuter = bvSpace
@@ -140,11 +140,11 @@ object frmMain: TfrmMain
       TabOrder = 2
     end
     object pnlSize: TPanel
-      Left = 321
-      Height = 27
+      Left = 268
+      Height = 23
       Hint = 'Node content size.'
       Top = 0
-      Width = 81
+      Width = 68
       Align = alLeft
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelColor = clScrollBar
@@ -154,10 +154,10 @@ object frmMain: TfrmMain
     end
     object pnlSnippetcount: TPanel
       Left = 0
-      Height = 27
+      Height = 23
       Hint = 'Snippet count'
       Top = 0
-      Width = 96
+      Width = 80
       Align = alLeft
       BevelColor = clScrollBar
       BevelOuter = bvSpace
@@ -165,10 +165,10 @@ object frmMain: TfrmMain
       TabOrder = 6
     end
     object pnlStatusBarCenter: TPanel
-      Left = 639
-      Height = 27
+      Left = 535
+      Height = 23
       Top = 0
-      Width = 577
+      Width = 477
       Align = alClient
       BevelColor = clScrollBar
       BevelOuter = bvSpace
@@ -176,11 +176,11 @@ object frmMain: TfrmMain
       TabOrder = 8
     end
     object pnlNumLock: TPanel
-      Left = 525
-      Height = 27
+      Left = 439
+      Height = 23
       Hint = 'Num Lock'
       Top = 0
-      Width = 57
+      Width = 48
       Align = alLeft
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelColor = clScrollBar
@@ -190,11 +190,11 @@ object frmMain: TfrmMain
       TabOrder = 9
     end
     object pnlCapsLock: TPanel
-      Left = 582
-      Height = 27
+      Left = 487
+      Height = 23
       Hint = 'Caps Lock'
       Top = 0
-      Width = 57
+      Width = 48
       Align = alLeft
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelColor = clScrollBar
@@ -205,38 +205,38 @@ object frmMain: TfrmMain
     end
   end
   object pnlWelcome: TPanel
-    Left = 480
-    Height = 225
-    Top = 96
-    Width = 1138
+    Left = 400
+    Height = 188
+    Top = 80
+    Width = 948
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = True
     BevelColor = clScrollBar
     BevelOuter = bvSpace
     BevelWidth = 2
-    ClientHeight = 225
-    ClientWidth = 1138
-    Constraints.MaxHeight = 300
-    Constraints.MaxWidth = 6000
-    Constraints.MinHeight = 225
-    Constraints.MinWidth = 384
+    ClientHeight = 188
+    ClientWidth = 948
+    Constraints.MaxHeight = 250
+    Constraints.MaxWidth = 5000
+    Constraints.MinHeight = 188
+    Constraints.MinWidth = 320
     ParentBackground = False
     TabOrder = 3
     Visible = False
     Wordwrap = True
     object lblWelcome: TLabel
       Left = 2
-      Height = 221
+      Height = 184
       Top = 2
-      Width = 1134
+      Width = 944
       Align = alClient
       Alignment = taCenter
       AutoSize = False
-      BorderSpacing.InnerBorder = 6
+      BorderSpacing.InnerBorder = 5
       Caption = 'Welcome to SnippetSource! '#13#10#13#10'A new database has been created, '#13#10'and you can start collecting your snippets right away!'#13#10#13#10'You can drag one or more textfiles into the treeview'#13#10'and they will be added to the database.'#13#10#13#10'It is also possible to drag complete folderstructures into'#13#10'the treeview. '
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
-      Font.Height = -17
+      Font.Height = -14
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       Layout = tlCenter
@@ -245,59 +245,59 @@ object frmMain: TfrmMain
     end
   end
   object pnlRight: TPanel
-    Left = 429
-    Height = 966
+    Left = 358
+    Height = 805
     Top = 0
-    Width = 1237
+    Width = 1030
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 966
-    ClientWidth = 1237
+    ClientHeight = 805
+    ClientWidth = 1030
     ParentBackground = False
     TabOrder = 4
     object nbRight: TNotebook
       Left = 0
-      Height = 928
-      Top = 38
-      Width = 1237
+      Height = 773
+      Top = 32
+      Width = 1030
       PageIndex = 0
       Align = alClient
       TabOrder = 0
       object pgTextEditor: TPage
         object pnlEditor: TPanel
           Left = 0
-          Height = 928
+          Height = 773
           Top = 0
-          Width = 1237
+          Width = 1030
           Align = alClient
           BevelOuter = bvNone
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
-          ClientHeight = 928
-          ClientWidth = 1237
+          ClientHeight = 773
+          ClientWidth = 1030
           Color = clBtnFace
           ParentBackground = False
           ParentColor = False
           TabOrder = 0
           object pnlEditorToolBar: TPanel
             Left = 0
-            Height = 36
+            Height = 30
             Top = 0
-            Width = 1237
+            Width = 1030
             Align = alTop
             BevelColor = clScrollBar
             BevelOuter = bvNone
-            ClientHeight = 36
-            ClientWidth = 1237
+            ClientHeight = 30
+            ClientWidth = 1030
             ParentBackground = False
             TabOrder = 0
             object tlbEditorView: TToolBar
               Left = 0
-              Height = 34
+              Height = 28
               Top = 0
-              Width = 1093
+              Width = 910
               Align = alClient
-              ButtonHeight = 33
-              ButtonWidth = 36
+              ButtonHeight = 28
+              ButtonWidth = 30
               EdgeBorders = []
               EdgeInner = esNone
               EdgeOuter = esNone
@@ -311,21 +311,21 @@ object frmMain: TfrmMain
             object shpTextEditorToolBarLine: TShape
               Left = 0
               Height = 2
-              Top = 34
-              Width = 1237
+              Top = 28
+              Width = 1030
               Align = alBottom
               Pen.Color = clScrollBar
             end
             object btnHighlighter: TMenuButton
-              Left = 1165
-              Height = 34
+              Left = 970
+              Height = 28
               Top = 0
-              Width = 72
+              Width = 60
               Align = alRight
               Flat = True
               Font.CharSet = ANSI_CHARSET
               Font.Color = clBlack
-              Font.Height = -17
+              Font.Height = -14
               Font.Name = 'Courier New'
               Font.Pitch = fpVariable
               Font.Quality = fqDraft
@@ -333,10 +333,10 @@ object frmMain: TfrmMain
               ParentFont = False
             end
             object btnExecute: TSpeedButton
-              Left = 1129
-              Height = 34
+              Left = 940
+              Height = 28
               Top = 0
-              Width = 36
+              Width = 30
               Action = actExecute
               Align = alRight
               Flat = True
@@ -345,10 +345,10 @@ object frmMain: TfrmMain
               ShowCaption = False
             end
             object btnToggleSplitView: TSpeedButton
-              Left = 1093
-              Height = 34
+              Left = 910
+              Height = 28
               Top = 0
-              Width = 36
+              Width = 30
               Action = actToggleSplitView
               Align = alRight
               AllowAllUp = True
@@ -362,39 +362,39 @@ object frmMain: TfrmMain
           end
           object pnlEditorToolViewHost: TPanel
             Left = 0
-            Height = 892
-            Top = 36
-            Width = 372
+            Height = 743
+            Top = 30
+            Width = 310
             Align = alLeft
             BevelOuter = bvNone
-            ClientHeight = 892
-            ClientWidth = 372
+            ClientHeight = 743
+            ClientWidth = 310
             ParentBackground = False
             TabOrder = 1
             Visible = False
             object pnlEditorToolViewHostHeader: TPanel
               Left = 0
-              Height = 38
+              Height = 32
               Top = 0
-              Width = 372
+              Width = 310
               Align = alTop
               BevelOuter = bvNone
-              ClientHeight = 38
-              ClientWidth = 372
+              ClientHeight = 32
+              ClientWidth = 310
               ParentBackground = False
               TabOrder = 0
               object btnCloseEditorToolView: TSpeedButton
-                Left = 351
-                Height = 38
+                Left = 292
+                Height = 32
                 Top = 0
-                Width = 21
+                Width = 18
                 Action = actCloseEditorToolView
                 Align = alRight
                 BorderSpacing.InnerBorder = 3
                 BorderSpacing.CellAlignHorizontal = ccaCenter
                 BorderSpacing.CellAlignVertical = ccaCenter
                 Flat = True
-                Font.Height = -17
+                Font.Height = -14
                 Font.Name = 'Marlett'
                 Glyph.Data = {
                   C6010000424DC60100000000000036000000280000000A0000000A0000000100
@@ -420,9 +420,9 @@ object frmMain: TfrmMain
               end
               object lblEditorToolViewHeader: TLabel
                 Left = 0
-                Height = 38
+                Height = 32
                 Top = 0
-                Width = 348
+                Width = 286
                 Align = alLeft
                 Alignment = taCenter
                 Anchors = [akTop, akLeft, akRight, akBottom]
@@ -434,19 +434,19 @@ object frmMain: TfrmMain
             end
           end
           object splEditorVertical: TSplitter
-            Left = 372
-            Height = 892
-            Top = 36
-            Width = 6
+            Left = 310
+            Height = 743
+            Top = 30
+            Width = 5
             Color = clScrollBar
             ParentColor = False
             Visible = False
           end
           object pnlMulti: TOMultiPanel
-            Left = 378
-            Height = 892
-            Top = 36
-            Width = 859
+            Left = 315
+            Height = 743
+            Top = 30
+            Width = 715
             PanelCollection = <            
               item
                 Position = 1
@@ -480,37 +480,37 @@ object frmMain: TfrmMain
             Left = 0
             Height = 696
             Top = 24
-            Width = 372
+            Width = 310
             Align = alLeft
             BevelOuter = bvNone
             ClientHeight = 696
-            ClientWidth = 372
+            ClientWidth = 310
             ParentBackground = False
             TabOrder = 0
             Visible = False
             object pnlRichEditorToolViewHostHeader: TPanel
               Left = 0
-              Height = 38
+              Height = 32
               Top = 0
               Width = 248
               Align = alTop
               BevelOuter = bvNone
-              ClientHeight = 38
+              ClientHeight = 32
               ClientWidth = 248
               ParentBackground = False
               TabOrder = 0
               object btnCloseRichEditorToolView: TSpeedButton
-                Left = 227
+                Left = 230
                 Height = 25
                 Top = 0
-                Width = 21
+                Width = 18
                 Action = actCloseRichEditorToolView
                 Align = alRight
                 BorderSpacing.InnerBorder = 3
                 BorderSpacing.CellAlignHorizontal = ccaCenter
                 BorderSpacing.CellAlignVertical = ccaCenter
                 Flat = True
-                Font.Height = -17
+                Font.Height = -14
                 Font.Name = 'Marlett'
                 Glyph.Data = {
                   C6010000424DC60100000000000036000000280000000A0000000A0000000100
@@ -553,20 +553,20 @@ object frmMain: TfrmMain
             Left = 248
             Height = 696
             Top = 24
-            Width = 6
+            Width = 5
             Color = clScrollBar
             ParentColor = False
             Visible = False
           end
           object pnlRichEditorToolBar: TPanel
             Left = 0
-            Height = 36
+            Height = 30
             Top = 0
             Width = 825
             Align = alTop
             BevelColor = clScrollBar
             BevelOuter = bvNone
-            ClientHeight = 36
+            ClientHeight = 30
             ClientWidth = 825
             ParentBackground = False
             TabOrder = 2
@@ -584,8 +584,8 @@ object frmMain: TfrmMain
               Top = 0
               Width = 825
               Align = alClient
-              ButtonHeight = 33
-              ButtonWidth = 36
+              ButtonHeight = 28
+              ButtonWidth = 30
               EdgeBorders = []
               EdgeInner = esNone
               EdgeOuter = esNone
@@ -615,13 +615,13 @@ object frmMain: TfrmMain
           TabOrder = 0
           object pnlHtmlEditorToolBar: TPanel
             Left = 0
-            Height = 36
+            Height = 30
             Top = 0
             Width = 1237
             Align = alTop
             BevelColor = clScrollBar
             BevelOuter = bvNone
-            ClientHeight = 36
+            ClientHeight = 30
             ClientWidth = 1237
             ParentBackground = False
             TabOrder = 0
@@ -639,8 +639,8 @@ object frmMain: TfrmMain
               Top = 0
               Width = 1237
               Align = alClient
-              ButtonHeight = 33
-              ButtonWidth = 36
+              ButtonHeight = 28
+              ButtonWidth = 30
               EdgeBorders = []
               EdgeInner = esNone
               EdgeOuter = esNone
@@ -657,30 +657,30 @@ object frmMain: TfrmMain
     end
     object pnlTitle: TPanel
       Left = 0
-      Height = 38
+      Height = 32
       Top = 0
-      Width = 1237
+      Width = 1030
       Align = alTop
       BevelColor = clScrollBar
       BevelOuter = bvNone
-      ClientHeight = 38
-      ClientWidth = 1237
+      ClientHeight = 32
+      ClientWidth = 1030
       Color = clBtnFace
       ParentBackground = False
       ParentColor = False
       TabOrder = 1
       object edtTitle: TEdit
-        Left = 156
-        Height = 36
+        Left = 130
+        Height = 30
         Top = 0
-        Width = 682
+        Width = 567
         Align = alClient
         Alignment = taCenter
         AutoSize = False
         BorderStyle = bsNone
         Font.CharSet = ANSI_CHARSET
         Font.Color = clGrayText
-        Font.Height = -26
+        Font.Height = -22
         Font.Name = 'Segoe UI'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
@@ -697,31 +697,31 @@ object frmMain: TfrmMain
       object shpLine1: TShape
         Left = 0
         Height = 2
-        Top = 36
-        Width = 1237
+        Top = 30
+        Width = 1030
         Align = alBottom
         Pen.Color = clScrollBar
       end
       object pnlToolBarHost: TPanel
-        Left = 838
-        Height = 36
+        Left = 697
+        Height = 30
         Top = 0
-        Width = 399
+        Width = 333
         Align = alRight
         BevelOuter = bvNone
         Caption = 'pnlApplicationToolBarHost'
-        ClientHeight = 36
-        ClientWidth = 399
+        ClientHeight = 30
+        ClientWidth = 333
         ParentBackground = False
         TabOrder = 1
         object tlbApplication: TToolBar
           Left = 0
-          Height = 36
+          Height = 30
           Top = 0
-          Width = 399
+          Width = 333
           Align = alClient
-          ButtonHeight = 30
-          ButtonWidth = 36
+          ButtonHeight = 25
+          ButtonWidth = 30
           Color = clForm
           EdgeBorders = []
           EdgeInner = esNone
@@ -738,24 +738,24 @@ object frmMain: TfrmMain
       end
       object pnlEditorSelectionToolBarHost: TPanel
         Left = 0
-        Height = 36
+        Height = 30
         Top = 0
-        Width = 156
+        Width = 130
         Align = alLeft
         BevelOuter = bvNone
         Caption = 'pnlEditorSelectionToolBarHost'
-        ClientHeight = 36
-        ClientWidth = 156
+        ClientHeight = 30
+        ClientWidth = 130
         ParentBackground = False
         TabOrder = 2
         object tlbActiveView: TToolBar
           Left = 0
-          Height = 36
+          Height = 30
           Top = 0
-          Width = 156
+          Width = 130
           Align = alClient
-          ButtonHeight = 30
-          ButtonWidth = 39
+          ButtonHeight = 25
+          ButtonWidth = 33
           Color = clForm
           EdgeBorders = []
           EdgeInner = esNone
@@ -773,22 +773,22 @@ object frmMain: TfrmMain
       end
     end
     object pnlFloating: TPanel
-      Left = 1161
-      Height = 50
-      Top = 83
-      Width = 50
+      Left = 966
+      Height = 42
+      Top = 69
+      Width = 42
       Anchors = [akTop, akRight]
       BevelOuter = bvNone
-      ClientHeight = 50
-      ClientWidth = 50
+      ClientHeight = 42
+      ClientWidth = 42
       ParentBackground = False
       TabOrder = 2
       Wordwrap = True
       object btnCopySnippet: TSpeedButton
         Left = 0
-        Height = 50
+        Height = 42
         Top = 0
-        Width = 50
+        Width = 42
         Action = actCopySnippet
         Align = alClient
         Images = imlMain
@@ -799,14 +799,14 @@ object frmMain: TfrmMain
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    Left = 204
-    Top = 156
+    Left = 170
+    Top = 130
   end
   object aclMain: TActionList
     Images = imlMain
     OnExecute = aclMainExecute
-    Left = 300
-    Top = 156
+    Left = 250
+    Top = 130
     object actExecute: TAction
       Caption = 'Execute'
       Hint = 'Execute'
@@ -933,8 +933,8 @@ object frmMain: TfrmMain
   object imlMain: TImageList
     DrawingStyle = dsTransparent
     Scaled = True
-    Left = 90
-    Top = 156
+    Left = 75
+    Top = 130
     Bitmap = {
       4C7A140000001000000010000000A42500000000000078DAED9C075414C9B7FF
       7B08A2A26B605D575DC31AD78020B84A90208A04C9C180200A48121326CC8A79
@@ -6431,8 +6431,8 @@ object frmMain: TfrmMain
     BkColor = clWhite
     DrawingStyle = dsTransparent
     Scaled = True
-    Left = 84
-    Top = 372
+    Left = 70
+    Top = 310
     Bitmap = {
       4C7A040000001000000010000000940400000000000078DAED976B4C5B6518C7
       FBDD5BFCE44713B3FA6159EADC4C9C7ED088714AE6253A9CCB8221B8B18D3942
@@ -6477,12 +6477,12 @@ object frmMain: TfrmMain
   object dctMain: TDropComboTarget
     DragTypes = [dtCopy, dtLink]
     Formats = [mfFile, mfURL]
-    Left = 232
-    Top = 372
+    Left = 193
+    Top = 310
   end
   object tmrHide: TTimer
     Interval = 5000
-    Left = 125
-    Top = 506
+    Left = 104
+    Top = 422
   end
 end

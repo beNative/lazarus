@@ -1795,13 +1795,16 @@ end;
 
 procedure TfrmMain.UpdateStatusBar;
 begin
-  pnlPosition.Caption :=
-    Format('%1d:%1d / %1d | %1d', [
-      Editor.CaretX,
-      Editor.CaretY,
-      Editor.Lines.Count,
-      Editor.SelStart
-    ]);
+  if Assigned(Editor) then
+  begin
+    pnlPosition.Caption :=
+      Format('%1d:%1d / %1d | %1d', [
+        Editor.CaretX,
+        Editor.CaretY,
+        Editor.Lines.Count,
+        Editor.SelStart
+      ]);
+  end;
   pnlSnippetCount.Caption := Format('%d records.', [DataSet.RecordCount]);
   if Assigned(FHtmlEditor) then
   begin

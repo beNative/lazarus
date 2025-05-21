@@ -19,6 +19,7 @@ object frmMain: TfrmMain
   ShowHint = True
   LCLVersion = '4.99.0.0'
   OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
   OnWindowStateChange = FormWindowStateChange
   object pnlStatusBar: TPanel
     Left = 0

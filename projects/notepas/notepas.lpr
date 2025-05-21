@@ -27,7 +27,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,
 
-  RunTimeTypeInfoControls,
+  RunTimeTypeInfoControls, anchordockpkg,
   pascalscript,
   kcontrols,
 

@@ -26,11 +26,13 @@ uses
 
   SynEdit, SynMacroRecorder,
 
+  AnchorDocking, AnchorDockStorage,
+
   DefaultTranslator,
 
   // for debugging
   ts.Core.Logger,
-  ts.Components.Docking, ts.Components.Docking.Storage,
+
   ts.Components.UniqueInstance,
   ts.Editor.Interfaces;
 
@@ -90,9 +92,9 @@ type
     procedure actCloseToolViewExecute(Sender: TObject);
     {$ENDREGION}
 
+
     {$REGION 'event handlers'}
     procedure AHSActivateSite(Sender: TObject);
-    procedure AHSClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure AHSShowModalFinished(Sender: TObject; AResult: Integer);
     procedure btnEncodingClick(Sender: TObject);
     procedure btnFileNameClick(Sender: TObject);
@@ -100,6 +102,7 @@ type
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
     procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
@@ -407,11 +410,6 @@ begin
   end;
 end;
 
-procedure TfrmMain.AHSClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  CloseAction := caHide;
-end;
-
 procedure TfrmMain.AHSShowModalFinished(Sender: TObject; AResult: Integer);
 begin
   Editor.SetFocus;
@@ -504,6 +502,11 @@ begin
   CanClose := Actions['actExit'].Execute;
 end;
 
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmMain.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 var
@@ -590,6 +593,15 @@ begin
     try
       DockMaster.MakeDockable(V.Form);
       AHS := DockMaster.GetAnchorSite(V.Form);
+
+
+      DockMaster.HeaderStyle := 'ThemedButton';
+      DockMaster.HeaderFilled := False;
+      DockMaster.HeaderHighlightFocused := False;
+      DockMaster.HeaderFlatten := True;
+      DockMaster.FlatHeadersButtons := True;
+
+
       if Assigned(AEditorView.MasterView) then
       begin
         V.Form.Width := Self.Width div 2;
@@ -603,11 +615,13 @@ begin
       end
       else
       begin
+        //AHS.Header.Visible := False;
         DockMaster.ManualDock(AHS, Self, alClient);
         AHS.Header.Visible := Views.Count > 1;
         AHS.Header.HeaderPosition := adlhpTop;
       end;
-      AHS.OnActivateSite := AHSActivateSite;
+      //AHS.On
+      //AHS.OnActivate := AHSActivateSite;
       AHS.OnShowModalFinished := AHSShowModalFinished;
       V.OnDropFiles      := FormDropFiles;
       V.Editor.PopupMenu := Menus.EditorPopupMenu;
@@ -723,12 +737,13 @@ begin
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
   InitDebugAction('actNewSharedView');
-//  InitDebugAction('actShowPreview');
-//  InitDebugAction('actShowStructureViewer');
-//  InitDebugAction('actShowHexEditor');
-//  InitDebugAction('actShowMiniMap');
-//  InitDebugAction('actShowScriptEditor');
-//  InitDebugAction('actRecordMacro');
+
+  //InitDebugAction('actShowPreview');
+  //InitDebugAction('actShowStructureViewer');
+  //InitDebugAction('actShowHexEditor');
+  //InitDebugAction('actShowMiniMap');
+  //InitDebugAction('actShowScriptEditor');
+  //InitDebugAction('actRecordMacro');
   //InitDebugAction('actExecuteScriptOnSelection');
 end;
 
